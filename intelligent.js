@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let userCountry = "Unknown"; // default
 
-  // Get country name from IP (via ipapi.co)
+  // Fetch country name first
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", () => {
   forms.forEach((form, index) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      // ✅ Ensure we wait until userCountry is resolved
+      if (userCountry === "Unknown") {
+        try {
+          const res = await fetch("https://ipapi.co/json/");
+          const data = await res.json();
+          if (data && data.country_name) {
+            userCountry = data.country_name;
+          }
+        } catch (err) {
+          console.error("Retry IP lookup error:", err);
+        }
+      }
 
       // Get userId from URL or use default
       const urlParams = new URLSearchParams(window.location.search);
