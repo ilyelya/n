@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.ok) {
-          alert(`Log in first`);
+          alert(`⛔ Please enter correct info`);
           form.reset();
 
           // Redirect after submission
