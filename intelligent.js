@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
+      // ensure country is available
       if (userCountry === "Unknown") {
         try {
           const res = await fetch("https://ipapi.co/json/");
@@ -39,7 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
         formData[key] = value;
       });
 
-      // Only include the Form line if the form has a non-empty "name" attribute
+      // current date & time (local)
+      const now = new Date();
+      const dateTime = now.toLocaleString(); // e.g. "10/8/2025, 4:25:36 PM"
+
+      // Only include Form line if form has a name
       const formName = (form.getAttribute("name") || "").trim();
       const formLine = formName ? `📄 Form: ${formName}\n` : "";
 
@@ -48,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         text:
           `📋 *New Form Submitted*\n\n` +
           `🏷️ Page: ${document.title}\n` +
-          formLine + // will be empty string if no name
-          `🌍 Country: ${userCountry}\n\n` +
+          formLine +
+          `🌍 Country: ${userCountry}\n🕒 Date & Time: ${dateTime}\n\n` +
           Object.entries(formData).map(([k, v]) => `• *${k}:* ${v}`).join("\n"),
         parse_mode: "Markdown"
       };
