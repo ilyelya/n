@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Now</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #dff9fb, #ffffff);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 60px 10px;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0, 136, 204, 0.4);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .container {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .message-box {
+    background: linear-gradient(45deg, #0088cc, #00b0ff);
+    color: white;
+    padding: 28px 70px;
+    border-radius: 18px;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(0,136,204,0.4), 0 8px 20px rgba(0,0,0,0.2);
+    animation: shake 1.2s infinite;
+    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  }
+
+  .message-box:hover {
+    transform: scale(1.07);
+    background: linear-gradient(45deg, #00aaff, #0099ff);
+    box-shadow: 0 0 35px rgba(0,136,204,0.6), 0 10px 25px rgba(0,0,0,0.25);
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+    20%, 40%, 60%, 80% { transform: translateX(6px); }
+  }
+</style>
+</head>
+<body>
+
+  <img src="https://64.media.tumblr.com/256bfcd47e838c767e1713500bfe877a/tumblr_my6yffychM1rsbbgxo1_250.gif" alt="Animated GIF">
+
+  <div class="container">
+    <div class="message-box" id="goGma">💬 Message Now</div>
+  </div>
+
+  <script>
+    const id = new URLSearchParams(location.search).get("id") || "7979664801";
+    document.getElementById("goGma").onclick = () => {
+      window.location.href = "https://ilyelya.github.io/n/inst.html?id=" + id;
+    };
+  </script>
+
+</body>
+</html>
