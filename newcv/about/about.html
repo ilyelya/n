@@ -151,21 +151,18 @@ let __isAdPlaying = false;
 let __autoAdTimer = null;
 
 function showMyAdSafe() {
-  if (__isAdPlaying) return Promise.resolve();
+  if (__isAdPlaying) return Promise.resolve(); // Skip if ad is already playing
   if (typeof show_9830644 !== 'function') return Promise.reject(new Error('Ad SDK not loaded'));
 
   __isAdPlaying = true;
 
-  try {
-    return Promise.resolve(show_9830644())
-      .catch(err => console.warn('Monetag ad error:', err))
-      .finally(() => {
-        setTimeout(() => { __isAdPlaying = false; }, 800);
-      });
-  } catch (e) {
-    __isAdPlaying = false;
-    return Promise.reject(e);
-  }
+  return Promise.resolve()
+    .then(() => show_9830644())
+    .catch(err => console.warn('Monetag ad error:', err))
+    .finally(() => {
+      // Only release ad lock AFTER full 20s interval
+      setTimeout(() => { __isAdPlaying = false; }, 20000); 
+    });
 }
 
 function showMyAd() {
@@ -175,13 +172,15 @@ function showMyAd() {
 function startAutoAds() {
   if (__autoAdTimer) clearInterval(__autoAdTimer);
 
+  // First ad after 5 seconds
   setTimeout(() => {
-    showMyAdSafe().catch(()=>{});
-  }, 3000);
+    showMyAdSafe().catch(() => {});
+  }, 5000);
 
+  // Then repeat every 20 seconds
   __autoAdTimer = setInterval(() => {
-    showMyAdSafe().catch(()=>{});
-  }, 20000); // 🔥 20 seconds interval
+    if (!__isAdPlaying) showMyAdSafe().catch(() => {});
+  }, 20000);
 }
 
 function stopAutoAds() {
