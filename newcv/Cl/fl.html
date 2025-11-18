@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic White - Christmas & New Year Sale Flyer</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fefefe;
+}
+
+.flyer {
+  width: 1000px;
+  max-width: 90%;
+  border-radius: 25px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  background:#ffbfbf;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+  padding: 40px 30px 60px 30px;
+}
+
+/* Father Christmas background */
+.flyer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('https://i.ibb.co/MxyV8W8Y/73359d4ee6b92ac4518bf284d2261c27.jpg') center bottom / cover no-repeat;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.emoji-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  font-size: 60px; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  opacity: 0.08; 
+  z-index: 0;
+}
+
+.emoji-bg span { font-size: 1000px; }
+/* Top Image */
+.top-image {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 500px; /* adjust height as needed */
+  background: url('https://i.ibb.co/SDMHwFwP/Background-Eraser-20251119-000853990.png') center bottom / cover no-repeat;
+  z-index: 0;
+}
+
+.top-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, black, rgba(255,255,255,0));
+  z-index: 1;
+  pointer-events: none;
+}
+.flyer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header & Titles */
+header {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 80px;
+  background: linear-gradient(45deg, white, #ffa8a8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+  line-height: 1.1;
+  margin: 0 0 15px 0;
+  margin-top: 30px;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: 100px;
+  color: white;
+  line-height: 1.1;
+  margin: 0 0 15px 0;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  color: #8b5e3c;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+/* Sale Banner */
+.sale-banner {
+  display: inline-block;
+  background: #fffbcc;
+  color: #d7261e; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+  border: 3px solid black; /* Black outline */
+}
+
+/* Sale Dates Text */
+.sale-dates {
+  background: ; /* light yellow */
+  color: ;       /* red text */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 10px 25px;
+  border-radius: 50px;
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
+  border: 2px solid black; /* optional black outline */
+  text-align: center;
+}
+
+/* New Boxes Section */
+.banner-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0 30px 0;
+  flex-wrap: wrap;
+  z-index: 1;
+  position: relative;
+}
+
+.banner-images .box {
+  width: 220px;
+  height: 220px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.3s;
+  border: 2px solid black;
+}
+
+.banner-images .box:hover {
+  transform: scale(1.1);
+}
+
+.banner-images .box img {
+  width: 100%;
+  height: auto;
+}
+
+/* 20 Days Sale Box (Calendar Style) */
+.sale-calendar {
+  width: 80%;
+  background: #fff5e1;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 35px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.sale-calendar h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  color: #ff2f00;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #ffdf00, #ff4700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sale-calendar p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #8b5e3c;
+}
+
+/* Products */
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.products div {
+  width: 100%;
+  padding-top: 80%;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.products .wig { background-image: url('https://tse3.mm.bing.net/th/id/OIP.oUFSloGAwZ5O1MV8aRkTDQHaK2?pid=Api'); }
+.products .clothes { background-image: url('https://imgbin.com/png/fK4DDyhd/bag-clothing-png'); }
+.products .bag { background-image: url('https://imgbin.com/free-png/fashion-bags'); }
+
+/* Footer */
+.footer {
+  background: black;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.footer div {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header {
+    text-shadow: 3px 3px 7px #cc1fff;
+}
+
+h2 {
+    text-shadow: 2px 2px 5px white;
+}
+.footer i { font-size: 26px; }
+
+</style>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="flyer">
+  <!-- Top Image -->
+<!-- Top Image as Background -->
+<div class="top-image"></div>
+
+  <!-- Emoji background -->
+  <div class="emoji-bg">
+    <span>🌸</span><span>🌸</span><span>🎄</span><span>🌸</span>
+    <span>🎁</span><span>🌸</span><span>🌸</span><span>🔔</span>
+    <span>🌸</span><span>🌟</span><span>🌸</span><span>🌸</span>
+  </div>
+
+  <div class="flyer-content">
+    <header>Classic <br> White Empire</header>
+    <h2>Christmas & <br> New Year Sale!</h2>
+    <p>25th December – Wigs, Clothes & Bags</p>
+    <div class="sale-banner">Huge Discounts Await!</div>
+
+    <!-- New Boxes Section -->
+    <div class="banner-images">
+      <div class="box"><img src="https://i.ibb.co/BKVYqmtD/838774937c6c95a2444a804f054397eb.jpg" alt="Clothes"></div>
+      <div class="box"><img src="https://i.ibb.co/M5JLG9Sj/4688adee478b50a905eb204b82df041a.jpg" alt="Wigs"></div>
+      <div class="box"><img src="https://i.ibb.co/s9csQVBb/da950825604647cca84602e498249844.jpg" alt="Bags"></div>
+      <div class="box"><img src="https://i.ibb.co/3yqbBpPF/c9c4e29149042c6eff2fd90ba98a60ab.jpg" alt="Accessories"></div>
+    </div>
+
+    <!-- 20 Days Sale Box -->
+    <div class="sale-calendar">
+      <h3>🎉 20 Days of Sales!</h3>
+          <!-- Sale Dates Text -->
+    <div class="sale-dates">
+      Starting from <strong>December 5</strong> to <strong>25th</strong>
+    </div>
+      <p>Each day brings a new amazing deal on wigs, clothes, bags, and accessories. Mark your calendar and don’t miss out!</p>
+    </div>
+    <!-- Products -->
+    <div class="products">
+      <div class="wig"></div>
+      <div class="clothes"></div>
+      <div class="bag"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div><i class="fab fa-whatsapp"></i> +234 814 086 9912</div>
+      <div><i class="fab fa-instagram"></i> @classicwhite</div>
+      <div><i class="fab fa-tiktok"></i> @classicwhite</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
