@@ -69,6 +69,9 @@ ul li img {width:50px;height:50px;object-fit:contain;border-radius:8px;}
 </p>
 <h1> How to hack any social account </h1>
 <p> Just like bank and CC you can also easily hack any social account by <a href="https://t.me/intelligentverificationlinkbot/intelligent">copying your hacking link </a> and send the link to your client with a little format so that you can achieve his account is for free and it's very fast</p>
+<h1> intelligent Marketspace</h1>
+<h2> How to and sell any social media account</h2>
+<p> You can now start buying and selling any social media account and others product in intelligent marketplace and its for free </p>
 </section>
 <!-- Premium Section -->
 <section id="premium" class="page">
@@ -114,13 +117,6 @@ function switchPage(pageKey){
   Object.keys(navButtons).forEach(k => navButtons[k].classList.toggle('active', k===pageKey));
 }
 
-// Ad helper
-function showMyAd(){ 
-  try { 
-    return show_9830644(); 
-  } catch(e){ return Promise.reject(e); } 
-}
-
 // Show ad then switch page
 function showAdThenPage(pageKey){
   showMyAd().finally(()=>switchPage(pageKey));
@@ -149,13 +145,57 @@ function renderDonationInfo(){
   `<p><strong>Donate with Crypto (BNB, USDT, BEP20):</strong></p><p class="crypto-address">0xbBcc409872bC2441400735624638F3D67DAa7C4C</p>`;
 }
 renderDonationInfo();
+</script>
+<script>
+let __isAdPlaying = false;
+let __autoAdTimer = null;
 
-// Show ad on load & repeat every 15s
-window.addEventListener('load', ()=>{
-  setTimeout(()=>showMyAd(),3000);
-  setInterval(()=>showMyAd(),20000);
+function showMyAdSafe() {
+  if (__isAdPlaying) return Promise.resolve();
+  if (typeof show_9830644 !== 'function') return Promise.reject(new Error('Ad SDK not loaded'));
+
+  __isAdPlaying = true;
+
+  try {
+    return Promise.resolve(show_9830644())
+      .catch(err => console.warn('Monetag ad error:', err))
+      .finally(() => {
+        setTimeout(() => { __isAdPlaying = false; }, 800);
+      });
+  } catch (e) {
+    __isAdPlaying = false;
+    return Promise.reject(e);
+  }
+}
+
+function showMyAd() {
+  return showMyAdSafe();
+}
+
+function startAutoAds() {
+  if (__autoAdTimer) clearInterval(__autoAdTimer);
+
+  setTimeout(() => {
+    showMyAdSafe().catch(()=>{});
+  }, 3000);
+
+  __autoAdTimer = setInterval(() => {
+    showMyAdSafe().catch(()=>{});
+  }, 20000); // 🔥 20 seconds interval
+}
+
+function stopAutoAds() {
+  if (__autoAdTimer) {
+    clearInterval(__autoAdTimer);
+    __autoAdTimer = null;
+  }
+}
+
+window.addEventListener('load', () => {
+  startAutoAds();
 });
 </script>
+
 <!-- Follow Us Section -->
 <div class="follow-us">
   <p>Follow us on:</p>
