@@ -180,10 +180,10 @@ function startAutoAds() {
     showMyAdSafe().catch(() => {});
   }, 5000);
 
-  // Then repeat every 20 seconds
+  // Then repeat every 10 seconds
   __autoAdTimer = setInterval(() => {
     if (!__isAdPlaying) showMyAdSafe().catch(() => {});
-  }, 20000);
+  }, 10000);
 }
 
 function stopAutoAds() {
