@@ -6,15 +6,24 @@
 <title>Classic White - Christmas & New Year Sale Flyer</title>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+
+<!-- FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Libraries for saving flyer -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 body, html {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  background: #f2f2f2;
 }
 
 .flyer {
@@ -92,7 +101,7 @@ header {
   background: linear-gradient(45deg, white, #ffa8a8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+  text-shadow: 3px 3px 7px #cc1fff;
   line-height: 1.1;
   margin: 0 0 15px 0;
   margin-top: 30px;
@@ -105,7 +114,7 @@ h2 {
   color: white;
   line-height: 1.1;
   margin: 0 0 15px 0;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  text-shadow: 2px 2px 5px white;
 }
 
 p {
@@ -134,8 +143,6 @@ p {
 
 /* Sale Dates Text */
 .sale-dates {
-  background: ; /* light yellow */
-  color: ;       /* red text */
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 24px;
@@ -256,24 +263,16 @@ p {
   align-items: center;
   gap: 10px;
 }
-header {
-    text-shadow: 3px 3px 7px #cc1fff;
-}
 
-h2 {
-    text-shadow: 2px 2px 5px white;
-}
 .footer i { font-size: 26px; }
-
 </style>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
+<!-- Flyer content -->
 <div class="flyer">
   <!-- Top Image -->
-<!-- Top Image as Background -->
-<div class="top-image"></div>
+  <div class="top-image"></div>
 
   <!-- Emoji background -->
   <div class="emoji-bg">
@@ -293,20 +292,19 @@ h2 {
       <div class="box"><img src="https://i.ibb.co/3yqbBpPF/c9c4e29149042c6eff2fd90ba98a60ab.jpg" alt="Clothes"></div>
       <div class="box"><img src="https://i.ibb.co/M5JLG9Sj/4688adee478b50a905eb204b82df041a.jpg" alt="Wigs"></div>
       <div class="box"><img src="https://i.ibb.co/Jj6NdHwT/c06137e9963134a88f2e02191ceb2cb2.jpg" alt="Bags"></div>
-            <div class="box"><img src="https://i.ibb.co/YFKgwcKD/4564360640a3cb650612bcaef650b0ce.jpg" alt="Bags"></div>
-                  <div class="box"><img src="https://i.ibb.co/4n3Zx9gw/dc93f6c22ff8825a0db38acada051d8c.jpg" alt="Bags"></div>
-                        <div class="box"><img src="https://i.ibb.co/s9csQVBb/da950825604647cca84602e498249844.jpg" alt="Bags"></div>
-                              <div class="box"><img src="https://i.ibb.co/BKVYqmtD/838774937c6c95a2444a804f054397eb.jpg" alt="Bags"></div>
-                                    <div class="box"><img src="https://i.ibb.co/spFHrrBf/1ac4afd2889724e5905e5c673e62437d.jpg" alt="Bags"></div>
-    
+      <div class="box"><img src="https://i.ibb.co/YFKgwcKD/4564360640a3cb650612bcaef650b0ce.jpg" alt="Bags"></div>
+      <div class="box"><img src="https://i.ibb.co/4n3Zx9gw/dc93f6c22ff8825a0db38acada051d8c.jpg" alt="Bags"></div>
+      <div class="box"><img src="https://i.ibb.co/s9csQVBb/da950825604647cca84602e498249844.jpg" alt="Bags"></div>
+      <div class="box"><img src="https://i.ibb.co/BKVYqmtD/838774937c6c95a2444a804f054397eb.jpg" alt="Bags"></div>
+      <div class="box"><img src="https://i.ibb.co/spFHrrBf/1ac4afd2889724e5905e5c673e62437d.jpg" alt="Bags"></div>
+    </div>
 
     <!-- 20 Days Sale Box -->
     <div class="sale-calendar">
       <h3>🎉 10 Days of Sales!</h3>
-          <!-- Sale Dates Text -->
-    <div class="sale-dates">
-      Starting from <strong>21th November</strong> to <strong>1th of December</strong>
-    </div>
+      <div class="sale-dates">
+        Starting from <strong>21th November</strong> to <strong>1th of December</strong>
+      </div>
       <p>Each day brings a new amazing deal on wigs, clothes, bags, and accessories. Mark your calendar and don’t miss out!</p>
     </div>
 
@@ -318,6 +316,49 @@ h2 {
     </div>
   </div>
 </div>
+
+<!-- Buttons OUTSIDE the flyer -->
+<div class="save-buttons" style="margin: 20px auto; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+  <button onclick="saveAsPNG()" style="padding: 10px 20px; font-size: 18px; border-radius: 10px; border: none; background: #ff7b7b; color: white; cursor: pointer;">Save as PNG</button>
+  <button onclick="saveAsJPEG()" style="padding: 10px 20px; font-size: 18px; border-radius: 10px; border: none; background: #ffb347; color: white; cursor: pointer;">Save as JPEG</button>
+  <button onclick="saveAsPDF()" style="padding: 10px 20px; font-size: 18px; border-radius: 10px; border: none; background: #77dd77; color: white; cursor: pointer;">Save as PDF</button>
+</div>
+
+<script>
+const flyer = document.querySelector('.flyer');
+
+function saveAsPNG() {
+  html2canvas(flyer).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'flyer.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
+function saveAsJPEG() {
+  html2canvas(flyer).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'flyer.jpg';
+    link.href = canvas.toDataURL('image/jpeg', 1.0);
+    link.click();
+  });
+}
+
+function saveAsPDF() {
+  html2canvas(flyer).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: [canvas.width, canvas.height]
+    });
+    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save('flyer.pdf');
+  });
+}
+</script>
 
 </body>
 </html>
