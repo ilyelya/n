@@ -6,5 +6,6 @@ const premiumUsers = [
 6551769849,
 7593407632,
 7821615443,
+7821615443,
   // Add more IDs here
 ];
