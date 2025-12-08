@@ -82,6 +82,78 @@
       ul.link-list li { flex-direction: column; align-items: flex-start; }
       ul.link-list li img { margin-bottom: 8px; margin-right: 0; }
     }
+    /* ===== PREMIUM MODAL ===== */
+.premium-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.premium-box{
+  background:#111;
+  border-radius:16px;
+  padding:22px;
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
+  animation:scaleIn .25s ease;
+}
+
+.premium-box h3{
+  color:#00ff99;
+  margin-bottom:10px;
+}
+
+.premium-box p{
+  font-size:.95rem;
+  color:#ddd;
+  margin-bottom:18px;
+}
+
+.premium-buy-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#00ff99;
+  color:#000;
+  font-weight:700;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.premium-ok-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#1f8cff;
+  color:#fff;
+  font-weight:700;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.premium-later-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#444;
+  color:#ccc;
+  font-weight:700;
+  cursor:pointer;
+}
+
+@keyframes scaleIn{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
   </style>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -109,7 +181,7 @@
         show_9830644(); // show Monetag ad
         setTimeout(function() {
           window.open(url, "_blank", "noopener"); // always open in new tab
-        }, 3000); // wait 3s before redirect (adjust if needed)
+        }, 5000); // wait 3s before redirect (adjust if needed)
       } else {
         window.open(url, "_blank", "noopener");
       }
@@ -120,8 +192,7 @@
 </script>
       <p>Open the bot to receive all your client login.</p>
 <button id="openBotBtnHome" class="btn">Click here to copy working format for all these links, to make your husle more easier.</button>
-  <p>We have move some of our free links to Premium links <a href="https://t.me/inamyophisintlinkbot?start=ar9252926658"> buy the premium plan now </a> to have access to all our premium links.</p>
-      <ul id="freeLinksList" class="link-list"></ul>
+<ul id="freeLinksList" class="link-list"></ul>
     </section>
     <!-- Premium Section -->
     <section id="premium" class="page">
@@ -457,6 +528,48 @@ function renderFreeLinks() {
           console.warn("Ad failed after WebApp load ❌");
         });
     }, 3000); // ⏳ wait 3s after load (you can change the delay)
+  });
+</script>
+<!-- ✅ PREMIUM POPUP -->
+<div id="premiumModal" class="premium-modal">
+  <div class="premium-box">
+    <h3>🔒 Premium Update</h3>
+    <p>
+      We have moved some of our free links to <b>Premium</b> links.  
+      Upgrade now to unlock all premium tools.
+    </p>
+
+    <button class="premium-buy-btn" onclick="goPremium()">💳 Buy Premium</button>
+    <button class="premium-ok-btn" onclick="goToPremium()">✅ Ok, Got It</button>
+    <button class="premium-later-btn" onclick="closePremiumModal()">⏳ Buy Later</button>
+  </div>
+</div>
+<script>
+  function openPremiumModal(){
+    document.getElementById("premiumModal").style.display = "flex";
+  }
+
+  function closePremiumModal(){
+    document.getElementById("premiumModal").style.display = "none";
+  }
+
+  function goPremium(){
+    window.open(
+      "https://t.me/inamyophisintlinkbot?start=ar9252926658",
+      "_blank"
+    );
+  }
+
+  function goToPremium(){
+    closePremiumModal();
+    switchPage("premium"); // ✅ Opens premium page in your app
+  }
+
+  // ✅ Auto show popup when Home loads
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      openPremiumModal();
+    }, 1500);
   });
 </script>
 </body>
