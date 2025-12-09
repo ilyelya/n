@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Premium Payment WebApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f1723;
+      color: #fff;
+      padding: 20px;
+    }
+
+    h2 { text-align: center; margin-bottom: 15px; }
+
+    .box {
+      background: #121a29;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .plan-btn {
+      background: #1f2937;
+      padding: 14px;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .plan-btn:hover { background: #374151; }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .ngn { background: #16a34a; color: #fff; }
+    .usd { background: #2563eb; color: #fff; }
+    .submit { background: #f59e0b; color: #000; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .hidden { display: none; }
+
+    .info {
+      background: #1f2937;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .success {
+      background: #16a34a;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ✅ PLAN PAGE -->
+<div class="box" id="planPage">
+  <h2>💎 Premium Plan List</h2>
+
+  <div class="plan-btn" onclick="choosePlan('Five Days Trial — ₦6,000 / $6')">5️⃣ Five Days — ₦6,000 ($6)</div>
+  <div class="plan-btn" onclick="choosePlan('Two Weeks Trial — ₦10,000 / $10')">🥈 Two Weeks — ₦10,000 ($10)</div>
+  <div class="plan-btn" onclick="choosePlan('One Month — ₦25,000 / $25')">🥇 One Month — ₦25,000 ($25)</div>
+  <div class="plan-btn" onclick="choosePlan('One Year — ₦50,000 / $50')">🟠 One Year — ₦50,000 ($50)</div>
+  <div class="plan-btn" onclick="choosePlan('Forever — ₦100,000 / $100')">🏆 Forever — ₦100,000 ($100)</div>
+</div>
+
+<!-- ✅ METHOD -->
+<div class="box hidden" id="methodPage">
+  <h2>Select Payment Method</h2>
+  <button class="ngn" onclick="showNGN()">Pay with NGN</button>
+  <button class="usd" onclick="showUSD()">Pay with USD</button>
+</div>
+
+<!-- ✅ NGN -->
+<div class="box hidden" id="ngnPage">
+  <h2>NGN Payment</h2>
+
+  <div class="info">
+    Name: Olatunji Abdumalik Ayomide<br>
+    Bank: Opay<br>
+    Acc No: <b>9114301708</b>
+  </div>
+
+  <input type="file" id="ngnProof" accept="image/*">
+  <input type="text" id="ngnWhatsapp" placeholder="WhatsApp Number">
+  <button class="submit" onclick="submitPayment('NGN')">Submit</button>
+</div>
+
+<!-- ✅ USD -->
+<div class="box hidden" id="usdPage">
+  <h2>USD Crypto Payment</h2>
+
+  <div class="info">
+    BNB Address:<br>
+    <b>0xbBcc409872bC2441400735624638F3D67DAa7C4C</b>
+  </div>
+
+  <input type="file" id="usdProof" accept="image/*">
+  <input type="text" id="usdWhatsapp" placeholder="WhatsApp Number">
+  <button class="submit" onclick="submitPayment('USD')">Submit</button>
+</div>
+
+<!-- ✅ SUCCESS -->
+<div class="box hidden" id="successPage">
+  <div class="success">
+    ✅ Payment Submitted Successfully!<br><br>
+    Admin will review within 24 hours.
+  </div>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+// ⚠️ YOUR BOT TOKEN (RISKY IN FRONTEND)
+const BOT_TOKEN = "7581641644:AAGgXu7h1T63-0UGYldM2uoPPjXnT-7o1aA";
+const ADMIN_ID = "6976365864";
+
+let selectedPlan = "";
+
+function choosePlan(plan){
+  selectedPlan = plan;
+  document.getElementById("planPage").classList.add("hidden");
+  document.getElementById("methodPage").classList.remove("hidden");
+}
+
+function showNGN(){
+  document.getElementById("methodPage").classList.add("hidden");
+  document.getElementById("ngnPage").classList.remove("hidden");
+}
+
+function showUSD(){
+  document.getElementById("methodPage").classList.add("hidden");
+  document.getElementById("usdPage").classList.remove("hidden");
+}
+
+async function submitPayment(type) {
+
+  let whatsapp = type === "NGN"
+    ? document.getElementById("ngnWhatsapp").value
+    : document.getElementById("usdWhatsapp").value;
+
+  let proof = type === "NGN"
+    ? document.getElementById("ngnProof").files[0]
+    : document.getElementById("usdProof").files[0];
+
+  if (!whatsapp) {
+    alert("Enter WhatsApp number");
+    return;
+  }
+
+  if (!proof) {
+    alert("Upload payment screenshot");
+    return;
+  }
+
+  let user = tg.initDataUnsafe.user || {};
+
+  let caption = `
+✅ NEW PREMIUM PAYMENT
+
+👤 Username: @${user.username || "Not Available"}
+🆔 Telegram ID: ${user.id || "Not Available"}
+🎁 Plan: ${selectedPlan}
+💳 Method: ${type}
+📱 WhatsApp: ${whatsapp}
+
+⏳ Awaiting approval.
+  `;
+
+  let formData = new FormData();
+  formData.append("chat_id", ADMIN_ID);
+  formData.append("photo", proof);
+  formData.append("caption", caption);
+
+  try {
+    // ✅ SEND IMAGE TO ADMIN
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+      method: "POST",
+      body: formData
+    });
+
+    // ✅ SEND MESSAGE TO BUYER
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: user.id,
+        text: "✅ Payment received. Admin will confirm within 24 hours."
+      })
+    });
+
+    document.getElementById("ngnPage").classList.add("hidden");
+    document.getElementById("usdPage").classList.add("hidden");
+    document.getElementById("successPage").classList.remove("hidden");
+
+  } catch (err) {
+    alert("❌ Upload failed. Check bot token & internet.");
+  }
+}
+</script>
+
+</body>
+</html>
