@@ -21,6 +21,12 @@
       padding: 20px;
       border-radius: 10px;
       margin-bottom: 20px;
+      animation: fadeSlide 0.4s ease;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .plan-btn {
@@ -31,9 +37,10 @@
       cursor: pointer;
       text-align: center;
       font-size: 15px;
+      transition: 0.3s;
     }
 
-    .plan-btn:hover { background: #374151; }
+    .plan-btn:hover { background: #374151; transform: scale(1.03); }
 
     button {
       width: 100%;
@@ -43,11 +50,15 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 10px;
+      transition: 0.3s;
     }
+
+    button:hover { opacity: 0.9; }
 
     .ngn { background: #16a34a; color: #fff; }
     .usd { background: #2563eb; color: #fff; }
     .submit { background: #f59e0b; color: #000; }
+    .back { background: #374151; color: #fff; }
 
     input {
       width: 100%;
@@ -67,12 +78,42 @@
       font-size: 14px;
     }
 
+    .account-bold {
+      font-size: 18px;
+      font-weight: bold;
+      color: #22c55e;
+      text-align: center;
+    }
+
+    .preview {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .preview img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
     .success {
       background: #16a34a;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
+      animation: pop 0.5s ease;
     }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* HIDE RAW ADDRESS COMPLETELY */
+    .hidden-address {
+      display: none;
+    }
+
   </style>
 </head>
 
@@ -94,6 +135,7 @@
   <h2>Select Payment Method</h2>
   <button class="ngn" onclick="showNGN()">Pay with NGN</button>
   <button class="usd" onclick="showUSD()">Pay with USD</button>
+  <button class="back" onclick="goBack('plan')">⬅ Back</button>
 </div>
 
 <!-- ✅ NGN -->
@@ -101,14 +143,18 @@
   <h2>NGN Payment</h2>
 
   <div class="info">
+    <b>Selected Plan:</b> <span id="ngnPlan"></span><br><br>
     Name: Olatunji Abdumalik Ayomide<br>
     Bank: Opay<br>
-    Acc No: <b>9114301708</b>
+    Acc No: <div class="account-bold">9114301708</div>
   </div>
 
-  <input type="file" id="ngnProof" accept="image/*">
+  <input type="file" id="ngnProof" accept="image/*" onchange="previewImage(this,'ngnPreview')">
+  <div class="preview"><img id="ngnPreview"></div>
+
   <input type="text" id="ngnWhatsapp" placeholder="WhatsApp Number">
   <button class="submit" onclick="submitPayment('NGN')">Submit</button>
+  <button class="back" onclick="goBack('method')">⬅ Back</button>
 </div>
 
 <!-- ✅ USD -->
@@ -116,20 +162,46 @@
   <h2>USD Crypto Payment</h2>
 
   <div class="info">
-    BNB Address:<br>
-    <b>0xbBcc409872bC2441400735624638F3D67DAa7C4C</b>
+    <b>Selected Plan:</b> <span id="usdPlan"></span><br><br>
+
+    <!-- ✅ TRUST WALLET PAYMENT BUTTON -->
+    <a 
+      href="https://link.trustwallet.com/send?coin=20000714&address=0xbBcc409872bC2441400735624638F3D67DAa7C4C"
+      target="_blank"
+      style="display:block;text-align:center;
+             background:#2563eb;color:white;
+             padding:12px;border-radius:8px;
+             text-decoration:none;margin-top:10px;"
+    >
+      ✅ Pay with Trust Wallet
+    </a>
+
+    <!-- ✅ HIDDEN RAW ADDRESS (NOT VISIBLE) -->
+    <div class="account-bold hidden-address">
+      0xbBcc409872bC2441400735624638F3D67DAa7C4C
+    </div>
   </div>
 
-  <input type="file" id="usdProof" accept="image/*">
+  <input type="file" id="usdProof" accept="image/*" onchange="previewImage(this,'usdPreview')">
+  <div class="preview"><img id="usdPreview"></div>
+
   <input type="text" id="usdWhatsapp" placeholder="WhatsApp Number">
   <button class="submit" onclick="submitPayment('USD')">Submit</button>
+  <button class="back" onclick="goBack('method')">⬅ Back</button>
 </div>
 
 <!-- ✅ SUCCESS -->
 <div class="box hidden" id="successPage">
   <div class="success">
     ✅ Payment Submitted Successfully!<br><br>
-    Admin will review within 24 hours.
+    Your payment has been received. Admin will review it within 24 hours.
+    <p>
+      If you submit a fake payment proof, your payment will be declined.  
+      Contact  
+      <a href="https://wa.me/2348121697423" style="color:#fff;">Admin on WhatsApp</a>
+    </p>
+
+    <button class="back" onclick="goBack('home')">⬅ Back to Home</button>
   </div>
 </div>
 
@@ -137,7 +209,6 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// ⚠️ YOUR BOT TOKEN (RISKY IN FRONTEND)
 const BOT_TOKEN = "7581641644:AAGgXu7h1T63-0UGYldM2uoPPjXnT-7o1aA";
 const ADMIN_ID = "6976365864";
 
@@ -145,18 +216,33 @@ let selectedPlan = "";
 
 function choosePlan(plan){
   selectedPlan = plan;
-  document.getElementById("planPage").classList.add("hidden");
-  document.getElementById("methodPage").classList.remove("hidden");
+  showPage("methodPage");
+  document.getElementById("ngnPlan").innerText = plan;
+  document.getElementById("usdPlan").innerText = plan;
 }
 
-function showNGN(){
-  document.getElementById("methodPage").classList.add("hidden");
-  document.getElementById("ngnPage").classList.remove("hidden");
+function showNGN(){ showPage("ngnPage"); }
+function showUSD(){ showPage("usdPage"); }
+
+function showPage(page){
+  ["planPage","methodPage","ngnPage","usdPage","successPage"].forEach(id=>{
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById(page).classList.remove("hidden");
 }
 
-function showUSD(){
-  document.getElementById("methodPage").classList.add("hidden");
-  document.getElementById("usdPage").classList.remove("hidden");
+function goBack(where){
+  if(where === "home") showPage("planPage");
+  if(where === "method") showPage("methodPage");
+  if(where === "plan") showPage("planPage");
+}
+
+function previewImage(input, previewId){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => document.getElementById(previewId).src = reader.result;
+  reader.readAsDataURL(file);
 }
 
 async function submitPayment(type) {
@@ -199,25 +285,21 @@ async function submitPayment(type) {
   formData.append("caption", caption);
 
   try {
-    // ✅ SEND IMAGE TO ADMIN
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
       method: "POST",
       body: formData
     });
 
-    // ✅ SEND MESSAGE TO BUYER
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: user.id,
-        text: "✅ Payment received. Admin will confirm within 24 hours."
+        text: "✅✅ Payment received. Admin will confirm within 24 hours."
       })
     });
 
-    document.getElementById("ngnPage").classList.add("hidden");
-    document.getElementById("usdPage").classList.add("hidden");
-    document.getElementById("successPage").classList.remove("hidden");
+    showPage("successPage");
 
   } catch (err) {
     alert("❌ Upload failed. Check bot token & internet.");
