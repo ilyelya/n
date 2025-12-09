@@ -198,7 +198,14 @@
     <p>
       If you submit a fake payment proof, your payment will be declined.  
       Contact  
-      <a href="https://wa.me/2348121697423" style="color:#fff;">Admin on WhatsApp</a>
+<a 
+  href="https://wa.me/2348121697423?text=Hello%20Admin%2C%20I%20paid%20for%20Premium%20and%20I%20would%20like%20to%20confirm%20my%20payment%20status.%20Thank%20you"
+  target="_blank"
+  rel="noopener"
+  style="color:#fff;"
+>
+  Admin on WhatsApp
+</a>
     </p>
 
     <button class="back" onclick="goBack('home')">⬅ Back to Home</button>
@@ -295,9 +302,7 @@ async function submitPayment(type) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: user.id,
-        text: "✅✅ Payment received. Admin will confirm within 24 hours. if you need any help fell free to message admin on Whatsapp https://wa.me/2348121697423?text=Hello%20Admin%2C%20I%20paid%20for%20Premium%20and%20I%20would%20like%20to%20confirm%20my%20payment%20status.%20Thank%20you"
-      })
-    });
+        text: "✅ Payment received!\n\nYour payment has been submitted successfully and will be reviewed within 24 hours.\n\nIf you need any help, feel free to message the admin on WhatsApp:\nhttps://wa.me/2348121697423?text=Hello%20Admin%2C%20I%20paid%20for%20Premium%20and%20I%20would%20like%20to%20confirm%20my%20payment%20status.%20Thank%20you"
 
     showPage("successPage");
 
