@@ -148,6 +148,7 @@
   color:black;
   font-weight:700;
   cursor:pointer;
+  margin-bottom: 4px;
 }
 
 @keyframes scaleIn{
@@ -526,7 +527,7 @@ function renderFreeLinks() {
         .catch(() => {
           console.warn("Ad failed after WebApp load ❌");
         });
-    }, 8000); // ⏳ wait 8s after load (you can change the delay)
+    }, 3000); // ⏳ wait 3s after load (you can change the delay)
   });
 </script>
 <!-- ✅ PREMIUM POPUP -->
@@ -538,10 +539,8 @@ function renderFreeLinks() {
       We have moved some of our free links to <b>Premium</b> links.  
       Upgrade now to unlock all premium tools.
     </p>
-
-    <button class="premium-buy-btn" onclick="goPremium()">💳 Buy Premium</button>
+        <button class="premium-later-btn" onclick="closePremiumModal()">⏳ Ok i understand(I will buy premium later)</button>
     <button class="premium-ok-btn" onclick="goToPremium()">✅  Premium links (I'm already a premium users)</button>
-    <button class="premium-later-btn" onclick="closePremiumModal()">⏳ Buy Later (I want to copy free links)</button>
   </div>
 </div>
 <script>
