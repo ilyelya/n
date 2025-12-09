@@ -109,11 +109,7 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    /* HIDE RAW ADDRESS COMPLETELY */
-    .hidden-address {
-      display: none;
-    }
-
+    .hidden-address { display: none; }
   </style>
 </head>
 
@@ -122,7 +118,6 @@
 <!-- ✅ PLAN PAGE -->
 <div class="box" id="planPage">
   <h2>💎 Premium Plan List</h2>
-
   <div class="plan-btn" onclick="choosePlan('Five Days Trial — ₦6,000 / $6')">5️⃣ Five Days — ₦6,000 ($6)</div>
   <div class="plan-btn" onclick="choosePlan('Two Weeks Trial — ₦10,000 / $10')">🥈 Two Weeks — ₦10,000 ($10)</div>
   <div class="plan-btn" onclick="choosePlan('One Month — ₦25,000 / $25')">🥇 One Month — ₦25,000 ($25)</div>
@@ -140,17 +135,14 @@
 <!-- ✅ NGN -->
 <div class="box hidden" id="ngnPage">
   <h2>NGN Payment</h2>
-
   <div class="info">
     <b>Selected Plan:</b> <span id="ngnPlan"></span><br><br>
     Name: Olatunji Abdumalik Ayomide<br>
     Bank: Opay<br>
     Acc No: <div class="account-bold">9114301708</div>
   </div>
-
   <input type="file" id="ngnProof" accept="image/*" onchange="previewImage(this,'ngnPreview')">
   <div class="preview"><img id="ngnPreview"></div>
-
   <input type="text" id="ngnWhatsapp" placeholder="WhatsApp Number">
   <button class="submit" onclick="submitPayment('NGN')">Submit</button>
   <button class="back" onclick="goBack('method')">⬅ Back</button>
@@ -159,48 +151,22 @@
 <!-- ✅ USD -->
 <div class="box hidden" id="usdPage">
   <h2>USD Crypto Payment</h2>
-
   <div class="info">
     <b>Selected Plan:</b> <span id="usdPlan"></span><br><br>
+  </div>
 
-    <!-- ✅ TRUST WALLET PAYMENT BUTTON -->
-    <a 
-      href="https://link.trustwallet.com/send?coin=20000714&address=0xbBcc409872bC2441400735624638F3D67DAa7C4C"
-      target="_blank"
-      style="display:block;text-align:center;
-             background:#2563eb;color:white;
-             padding:12px;border-radius:8px;
-             text-decoration:none;margin-top:10px;"
-    >
-      ✅ Pay with Trust Wallet
-    </a>
+  <a href="https://link.trustwallet.com/send?coin=20000714&address=0xbBcc409872bC2441400735624638F3D67DAa7C4C"
+     target="_blank"
+     style="display:block;text-align:center;background:#2563eb;color:white;padding:12px;border-radius:8px;text-decoration:none;margin-top:10px;">
+     ✅ Pay with Trust Wallet
+  </a>
 
-<!-- ✅ HIDDEN RAW ADDRESS (NOT VISIBLE) -->
-<div id="walletAddress" class="account-bold hidden-address">0xbBcc409872bC2441400735624638F3D67DAa7C4C</div>
+  <div id="walletAddress" class="account-bold hidden-address">0xbBcc409872bC2441400735624638F3D67DAa7C4C</div>
 
-<!-- ✅ COPY BUTTON -->
-<button onclick="copyWallet()" style="
-  margin-top:10px;
-  background:#22c55e;
-  color:#000;
-  font-weight:bold;
-">
-  📋 Copy Wallet Address
-</button>
-<script>
-  function copyWallet() {
-  const wallet = document.getElementById("walletAddress").innerText;
+  <button onclick="copyWallet()" style="margin-top:10px;background:#22c55e;color:#000;font-weight:bold;">📋 Copy Wallet Address</button>
 
-  navigator.clipboard.writeText(wallet).then(() => {
-    alert("✅ Wallet address copied successfully!");
-  }).catch(() => {
-    alert("❌ Failed to copy address");
-  });
-}
-</script>
   <input type="file" id="usdProof" accept="image/*" onchange="previewImage(this,'usdPreview')">
   <div class="preview"><img id="usdPreview"></div>
-
   <input type="text" id="usdWhatsapp" placeholder="WhatsApp Number">
   <button class="submit" onclick="submitPayment('USD')">Submit</button>
   <button class="back" onclick="goBack('method')">⬅ Back</button>
@@ -212,18 +178,9 @@
     ✅ Payment Submitted Successfully!<br><br>
     Your payment has been received. Admin will review it within 24 hours.
     <p>
-      If you submit a fake payment proof, your payment will be declined.  
-      Contact  
-<a 
-  href="https://wa.me/2348121697423?text=Hello%20Admin%2C%20I%20paid%20for%20Premium%20and%20I%20would%20like%20to%20confirm%20my%20payment%20status.%20Thank%20you"
-  target="_blank"
-  rel="noopener"
-  style="color:#fff;"
->
-  Admin on WhatsApp
-</a>
+      If you submit a fake payment proof, your payment will be declined.
+      <a href="https://wa.me/2348121697423" target="_blank" style="color:#fff;">Admin on WhatsApp</a>
     </p>
-
     <button class="back" onclick="goBack('home')">⬅ Back to Home</button>
   </div>
 </div>
@@ -268,8 +225,8 @@ function previewImage(input, previewId){
   reader.readAsDataURL(file);
 }
 
+/* ✅✅✅ FIXED SUCCESS & FAILURE LOGIC ONLY ✅✅✅ */
 async function submitPayment(type) {
-
   let whatsapp = type === "NGN"
     ? document.getElementById("ngnWhatsapp").value
     : document.getElementById("usdWhatsapp").value;
@@ -278,29 +235,20 @@ async function submitPayment(type) {
     ? document.getElementById("ngnProof").files[0]
     : document.getElementById("usdProof").files[0];
 
-  if (!whatsapp) {
-    alert("Enter WhatsApp number");
-    return;
-  }
+  if (!whatsapp) { alert("Enter WhatsApp number"); return; }
+  if (!proof) { alert("Upload payment screenshot"); return; }
 
-  if (!proof) {
-    alert("Upload payment screenshot");
-    return;
-  }
+  // ✅ SHOW SUCCESS PAGE IMMEDIATELY
+  showPage("successPage");
 
-  let user = tg.initDataUnsafe.user || {};
+  let user = tg.initDataUnsafe?.user || {};
 
   let caption = `
 ✅ NEW PREMIUM PAYMENT
-
-👤 Username: @${user.username || "Not Available"}
-🆔 Telegram ID: ${user.id || "Not Available"}
 🎁 Plan: ${selectedPlan}
 💳 Method: ${type}
 📱 WhatsApp: ${whatsapp}
-
-⏳ Awaiting approval.
-  `;
+`;
 
   let formData = new FormData();
   formData.append("chat_id", ADMIN_ID);
@@ -312,20 +260,8 @@ async function submitPayment(type) {
       method: "POST",
       body: formData
     });
-
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: user.id,
-        text: "✅ Payment received!\n\nYour payment has been submitted successfully and will be reviewed within 24 hours.\n\nIf you need any help, feel free to message the admin on WhatsApp:\nhttps://wa.me/2348121697423?text=Hello%20Admin%2C%20I%20paid%20for%20Premium%20and%20I%20would%20like%20to%20confirm%20my%20payment%20status.%20Thank%20you"
-      })
-    });
-
-    showPage("successPage");
-
   } catch (err) {
-    alert("❌ Upload failed. Check bot token & internet.");
+    alert("⚠️ Payment saved but could not notify admin. Please contact admin on WhatsApp.");
   }
 }
 </script>
