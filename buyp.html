@@ -289,6 +289,28 @@ async function submitPayment(type) {
   }
 }
 </script>
+<script>
+function copyWallet() {
+  const walletText = document.getElementById("walletAddress").innerText.trim();
 
+  if (!walletText) {
+    alert("❌ Wallet address not found");
+    return;
+  }
+
+  navigator.clipboard.writeText(walletText).then(() => {
+    alert("✅ Wallet address copied successfully!");
+  }).catch(() => {
+    // Fallback for old browsers
+    const tempInput = document.createElement("input");
+    tempInput.value = walletText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("✅ Wallet address copied!");
+  });
+}
+</script>
 </body>
 </html>
