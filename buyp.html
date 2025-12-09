@@ -130,9 +130,21 @@
   <h2>Select Payment Method</h2>
   <button class="ngn" onclick="showNGN()">Pay with NGN</button>
   <button class="usd" onclick="showUSD()">Pay with USD</button>
+<button onclick="openWhatsApp()" 
+style="background:#25D366;color:#000;font-weight:bold;margin-top:10px;">
+  💬 Live Chat With Admin on WhatsApp
+</button>
   <button class="back" onclick="goBack('plan')">⬅ Back</button>
 </div>
+<script>
+function openWhatsApp() {
+  const msg = encodeURIComponent(
+    "Hello harmayoh, I got your contact from Intelligent Verification Link Bot. I want to buy premium."
+  );
 
+  window.open("https://wa.me/2348121697423?text=" + msg, "_blank");
+}
+</script>
 <!-- ✅ NGN -->
 <div class="box hidden" id="ngnPage">
   <h2>NGN Payment</h2>
@@ -140,7 +152,13 @@
     <b>Selected Plan:</b> <span id="ngnPlan"></span><br><br>
     Name: Olatunji Abdumalik Ayomide<br>
     Bank: Opay<br>
-    Acc No: <div class="account-bold">9114301708</div>
+    Acc No: <!-- Account Number -->
+<div class="account-bold" id="ngnAccountText">9114301708</div>
+
+<!-- Copy Button -->
+<button onclick="copyNGNAccount()" style="margin-top:10px;background:#22c55e;color:#000;font-weight:bold;border:none;padding:12px;border-radius:8px;width:100%;">
+  📋 Copy Account Number
+</button>
   </div>
   <input type="file" id="ngnProof" accept="image/*" onchange="previewImage(this,'ngnPreview')">
   <div class="preview"><img id="ngnPreview"></div>
@@ -312,5 +330,22 @@ function copyWallet() {
   });
 }
 </script>
+<script>
+function copyNGNAccount() {
+  const acc = document.getElementById("ngnAccountText").innerText.trim();
+
+  navigator.clipboard.writeText(acc).then(() => {
+    alert("✅ Account number copied successfully!");
+  }).catch(() => {
+    const temp = document.createElement("input");
+    temp.value = acc;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    document.body.removeChild(temp);
+    alert("✅ Account number copied!");
+  });
+}
+</script>
 </body>
-</html>
+</html> 
