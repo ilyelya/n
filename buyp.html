@@ -61,12 +61,31 @@
     .back { background: #374151; color: #fff; }
 
     input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: none;
-    }
+  width: 95%;
+  padding: 14px 12px;          /* More comfortable typing space */
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #2f3a4d;   /* Soft visible border */
+  background: #0f1723;        /* Matches dark UI */
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s ease;
+  caret-color: #00ff99;       /* Nice cursor color */
+}
+
+/* ✅ When user is typing or clicks input */
+input:focus {
+  border-color: #00ff99;
+  box-shadow: 0 0 0 2px rgba(0, 255, 153, 0.15);
+  background: #121a29;
+}
+
+/* ✅ Placeholder styling */
+input::placeholder {
+  color: #9ca3af;
+  font-size: 13px;
+}
 
     .hidden { display: none; }
 
@@ -187,7 +206,7 @@ function openWhatsApp() {
 
   <input type="file" id="usdProof" accept="image/*" onchange="previewImage(this,'usdPreview')">
   <div class="preview"><img id="usdPreview"></div>
-  <input type="text" id="usdWhatsapp" placeholder="WhatsApp Number">
+  <input type="tel" maxlength="15" id="usdWhatsapp" placeholder="WhatsApp Number">
   <button class="submit" onclick="submitPayment('USD')">Submit</button>
   <button class="back" onclick="goBack('method')">⬅ Back</button>
 </div>
