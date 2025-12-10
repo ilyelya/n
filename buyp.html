@@ -7,7 +7,7 @@
 
   <style>
     body {
-      margin-top: 150px;
+      margin-top: 120px;
       font-family: Arial, sans-serif;
       background: #0f1723;
       color: #fff;
@@ -122,7 +122,9 @@ input::placeholder {
       text-align: center;
       animation: pop 0.5s ease;
     }
-
+.pdols {
+  font-size:13px;
+}
     @keyframes pop {
       from { transform: scale(0.7); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
@@ -136,11 +138,10 @@ input::placeholder {
 
 <!-- ✅ PLAN PAGE -->
 <div class="box" id="planPage">
-  <h2>💎 Premium Plan List</h2>
   <b>
-<p style="text-align:center;"> Our premium dollar price is (NGN1000 ≈ $1) Payment method for (USD) is only crypto ( (BNB) Smart chain wallet) this means if you are paying in dollars, your price will go higher more than (NGN) Nigerian Price. </p>
+<p style="text-align:center;" class="pdols"> Our premium dollar price is (NGN1000 ≈ $1) Payment method for (USD) is only crypto ( (BNB) Smart chain wallet) this means if you are paying in dollars, your price will go higher more than (NGN) Nigerian Price. </p>
 </b>
-<p><span> kindly select your premium plan </span></p>
+  <h2>💎 Premium Plan List</h2>
   <div class="plan-btn" onclick="choosePlan('Five Days Trial — ₦6,000 / $6')">5️⃣ Five Days — ₦6,000 ($6)</div>
   <div class="plan-btn" onclick="choosePlan('Two Weeks Trial — ₦10,000 / $10')">🥈 Two Weeks — ₦10,000 ($10)</div>
   <div class="plan-btn" onclick="choosePlan('One Month — ₦25,000 / $25')">🥇 One Month — ₦25,000 ($25)</div>
