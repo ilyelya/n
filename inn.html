@@ -439,13 +439,28 @@ function renderFreeLinks() {
         <p style="margin:0 0 12px;color:#97a0c3;font-size:14px;">
           Go premium before you can copy or paste this link.
         </p>
-    
-        <div style="display:flex;gap:8px;align-items:center;">
-          <input type="text" value="https://example.com/your-premium-link" disabled
-                 style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#b9c0e0;font-size:14px;-webkit-text-security:disc;">
-          <button disabled style="padding:10px 14px;border:none;border-radius:10px;background:#6c8cff;color:#0a0e22;font-weight:700;cursor:not-allowed;opacity:.6;">Copy</button>
-        </div>
-    
+    <div style="margin-top:10px;">
+  <p style="font-size:13px;color:#ffdd99;margin-bottom:6px;">
+    🔓 Invite <b>10 people</b> to unlock <b>1 week Premium</b><br>
+    (Every 10 invites = +7 days)
+  </p>
+
+  <div style="display:flex;gap:8px;align-items:center;">
+<input id="inviteLink" type="text" readonly
+  value=""
+      style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);color:#b9c0e0;font-size:13px;">
+    <button onclick="copyInviteLink()"
+      style="padding:10px 14px;border:none;border-radius:10px;
+      background:#6c8cff;color:#0a0e22;font-weight:700;">
+      Copy
+    </button>
+  </div>
+
+  <p style="font-size:12px;color:#9aa6ff;margin-top:6px;">
+    Share this link with 10 people to unlock premium for 7 days
+  </p>
+</div>
         <div style="margin-top:14px;padding:10px;border:1px dashed rgba(245,198,115,.5);background:rgba(255,213,133,.08);border-radius:10px;font-size:13px;display:flex;gap:10px;align-items:center;">
           Access locked. Upgrade to unlock this link.
           <a href="http://t.me/inamyophisintlinkbot/premium" target="_blank" rel="noopener noreferrer"
@@ -590,5 +605,14 @@ function renderFreeLinks() {
     }, 1500);
   });
 </script>
+<script>
+  function copyInviteLink() {
+    const link = `https://t.me/intelligentverificationlinkbot?start=r${telegramId}`;
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Invite link copied ✅\nInvite 10 people to unlock premium for 7 days");
+    });
+  }
+</script>
 </body>
 </html> 
+  
